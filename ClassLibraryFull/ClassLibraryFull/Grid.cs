@@ -13,6 +13,8 @@ namespace ClassLibraryFull
         private Cell[,] _cells;
 
         private List<GridPosition> _aliveCellPositions = new List<GridPosition>();
+        private List<GridPosition> _deadCellsWithLiveNeighborPositions = new List<GridPosition>();
+
 
         public Grid ( int rows, int columns )
         {
@@ -121,13 +123,25 @@ namespace ClassLibraryFull
             }
             return result;
         }
-
+        private bool positionOnGridAndDeadCheck ( GridPosition gridPosition )
+        {
+            bool result = false;
+            if (0 <= gridPosition.Row && gridPosition.Row < _rows &&
+                0 <= gridPosition.Column && gridPosition.Column < _columns)
+            {
+                result = getCell(gridPosition.Row, gridPosition.Column).IsDead;
+            }
+            return result;
+        }
         public Grid getNextGeneration ()
         {
             Grid nextGenGrid = new Grid(_rows, _columns);
             List<GridPosition> nextGenAlivePositions = new List<GridPosition>();
 
-            foreach (var _aliveCellPosition in _aliveCellPositions)
+             checkDeadNeighborsOfLiveCells();
+             var checkPositions = _deadCellsWithLiveNeighborPositions.Union(_aliveCellPositions).ToList();
+
+            foreach (var _aliveCellPosition in checkPositions)
             {
                 int liveNeighbors = getCountLiveNeigborsForPosition(_aliveCellPosition);
                 var cell = _cells[_aliveCellPosition.Row, _aliveCellPosition.Column];
@@ -137,12 +151,60 @@ namespace ClassLibraryFull
                 }
             }
 
+
+
             nextGenGrid.setAliveCells(nextGenAlivePositions);
             return nextGenGrid;
         }
+        private void checkDeadNeighborsOfLiveCells ()
+        {
+            foreach (var _aliveCellPosition in _aliveCellPositions)
+            { 
+                GridPosition neighborPosition;
+
+                //above left neighbor
+                neighborPosition = new GridPosition(_aliveCellPosition.Row - 1, _aliveCellPosition.Column - 1);
+                checkIfDeadAndAdd(neighborPosition);  
+                //above same neighbor 
+                neighborPosition = new GridPosition(_aliveCellPosition.Row, _aliveCellPosition.Column - 1);
+                checkIfDeadAndAdd(neighborPosition);  
+                //above right neighbor 
+                neighborPosition = new GridPosition(_aliveCellPosition.Row + 1, _aliveCellPosition.Column - 1);
+                checkIfDeadAndAdd(neighborPosition);
+
+                // left neighbor 
+                neighborPosition = new GridPosition(_aliveCellPosition.Row - 1, _aliveCellPosition.Column);
+                checkIfDeadAndAdd(neighborPosition);   
+                // selfdon't count
+                //count += positionOnGridAndAlive(new GridPosition(_aliveCellPosition.Row , _aliveCellPosition.Column  ));
+                // right neighbor  
+                neighborPosition = new GridPosition(_aliveCellPosition.Row + 1, _aliveCellPosition.Column);
+                checkIfDeadAndAdd(neighborPosition);
+
+                //below left neighbor 
+                neighborPosition = new GridPosition(_aliveCellPosition.Row - 1, _aliveCellPosition.Column + 1);
+                checkIfDeadAndAdd(neighborPosition); 
+                //below same neighbor 
+                neighborPosition = new GridPosition(_aliveCellPosition.Row, _aliveCellPosition.Column + 1);
+                checkIfDeadAndAdd(neighborPosition);   
+                //below right neighbor 
+                neighborPosition = new GridPosition(_aliveCellPosition.Row + 1, _aliveCellPosition.Column + 1);
+                checkIfDeadAndAdd(neighborPosition);
+
+            }
+        }
+
+        private void checkIfDeadAndAdd ( GridPosition checkPosition )
+        {
+            if (positionOnGridAndDeadCheck(checkPosition) && !_deadCellsWithLiveNeighborPositions.Contains(checkPosition))
+            {
+                _deadCellsWithLiveNeighborPositions.Add(checkPosition);
+            }
+        }
         private bool nextGenIsAlive ( bool isAlive, int liveNeigbors )
         {
-            if (isAlive && (liveNeigbors == 2 || liveNeigbors == 3))
+            if ((isAlive && (liveNeigbors == 2 || liveNeigbors == 3)) ||
+                (!isAlive && (liveNeigbors == 3)))
             {
                 return true;
             }

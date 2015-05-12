@@ -405,14 +405,46 @@ Cell next gen rules
             //Assert.IsFalse(nextGetAlivePositions.Contains(new GridPosition(1, 1)));
 
         }
-        /*
 
-3. Any live cell with two or three live neighbours lives 
-on to the next generation.
-4. Any dead cell with exactly three live neighbours becomes 
-a live cell.
+        [TestMethod]
+        //4. Any dead cell with exactly three live neighbours becomes a live cell.
+        public void NextGenerationOfGrid_4 ()
+        {
+            //010
+            //110
+            //000
 
- */
+            //nextgen
+            //110
+            //110
+            //000
+            int rows = 3;
+            int columns = 3;
+            Grid grid = new Grid(rows, columns);
+
+            //grid.setAliveCell(0, 0);
+            grid.setAliveCell(0, 1);
+            //grid.setAliveCell(0, 2);
+            grid.setAliveCell(1, 0);
+            grid.setAliveCell(1, 1);
+            //grid.setAliveCell(1, 2);
+            // grid.setAliveCell(2, 0);
+            // grid.setAliveCell(2, 1);
+            // grid.setAliveCell(2, 2);
+
+            Grid nextGenerationGrid = grid.getNextGeneration();
+            Assert.AreEqual(grid.Rows, nextGenerationGrid.Rows);
+            Assert.AreEqual(grid.Columns, nextGenerationGrid.Columns);
+
+            var nextGetAlivePositions = nextGenerationGrid.getAliveCellPositions();
+            Assert.AreEqual(4, nextGetAlivePositions.Count);
+
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(0, 0)));
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(0, 1)));
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(1, 0)));
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(1, 1)));
+
+        }
         [TestMethod]
         //3. Any live cell with two or three live neighbours lives on to the next generation.
         //2. Any live cell with more than three live neighbours dies, as if by overcrowding.
@@ -423,8 +455,8 @@ a live cell.
             //011
 
             //nextgen
-            //000
-            //000
+            //010
+            //100
             //011
             int rows = 3;
             int columns = 3;
@@ -455,15 +487,66 @@ a live cell.
             Assert.AreEqual(grid.Columns, nextGenerationGrid.Columns);
 
             var nextGetAlivePositions = nextGenerationGrid.getAliveCellPositions();
-            Assert.AreEqual(2, nextGetAlivePositions.Count);
+            Assert.AreEqual(4, nextGetAlivePositions.Count);
 
             Assert.IsFalse(nextGetAlivePositions.Contains(new GridPosition(0, 0)));
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(0, 1)));
             Assert.IsFalse(nextGetAlivePositions.Contains(new GridPosition(0, 2)));
+
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(1, 0)));
             Assert.IsFalse(nextGetAlivePositions.Contains(new GridPosition(1, 1)));
+            Assert.IsFalse(nextGetAlivePositions.Contains(new GridPosition(1, 2)));
+
+            Assert.IsFalse(nextGetAlivePositions.Contains(new GridPosition(2, 0)));
             Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(2, 1)));
             Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(2, 2)));
 
         }
+
+
+        [TestMethod]
+        public void NextGenerationOfGrid_4x8Example ()
+        {
+            /*
+         
+             Examples: * indicates live cell, . indicates dead cell
+
+    Example input: (4 x 8 grid)
+    4 8
+    ........
+    ....*...
+    ...**...
+    ........
+
+    Example output:
+    4 8
+    ........
+    ...**...
+    ...**...
+    ........
+
+             */
+            int rows = 4;
+            int columns = 8;
+            Grid grid = new Grid(rows, columns);
+
+            grid.setAliveCell(1, 4);
+            grid.setAliveCell(2, 3);
+            grid.setAliveCell(2, 4);
+
+            Grid nextGenerationGrid = grid.getNextGeneration();
+            Assert.AreEqual(grid.Rows, nextGenerationGrid.Rows);
+            Assert.AreEqual(grid.Columns, nextGenerationGrid.Columns);
+
+            var nextGetAlivePositions = nextGenerationGrid.getAliveCellPositions();
+            Assert.AreEqual(4, nextGetAlivePositions.Count);
+
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(1, 4)));
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(2, 3)));
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(2, 4)));
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(1, 3)));
+        }
+
     }
 }
 
