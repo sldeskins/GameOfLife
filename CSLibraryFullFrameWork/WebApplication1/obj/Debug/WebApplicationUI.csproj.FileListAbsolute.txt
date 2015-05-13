@@ -1,0 +1,8 @@
+C:\Exercises\GameOfLife\CSLibraryFullFrameWork\WebApplication1\bin\WebApplication1.dll.config
+C:\Exercises\GameOfLife\CSLibraryFullFrameWork\WebApplication1\bin\WebApplication1.dll
+C:\Exercises\GameOfLife\CSLibraryFullFrameWork\WebApplication1\bin\WebApplication1.pdb
+C:\Exercises\GameOfLife\CSLibraryFullFrameWork\WebApplication1\bin\ClassLibraryFull.dll
+C:\Exercises\GameOfLife\CSLibraryFullFrameWork\WebApplication1\bin\ClassLibraryFull.pdb
+C:\Exercises\GameOfLife\CSLibraryFullFrameWork\WebApplication1\obj\Debug\WebApplicationUI.csprojResolveAssemblyReference.cache
+C:\Exercises\GameOfLife\CSLibraryFullFrameWork\WebApplication1\obj\Debug\WebApplication1.dll
+C:\Exercises\GameOfLife\CSLibraryFullFrameWork\WebApplication1\obj\Debug\WebApplication1.pdb
