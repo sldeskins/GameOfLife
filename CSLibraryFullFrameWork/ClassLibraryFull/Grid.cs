@@ -72,12 +72,15 @@ namespace ClassLibraryFull
 
         public void setAliveCells ( List<GridPosition> aliveCellPositions )
         {
-            foreach (var aliveCellPosition in aliveCellPositions)
+            if (aliveCellPositions != null)
             {
-                _cells[aliveCellPosition.Row, aliveCellPosition.Column].IsAlive = true;
-                if (!_aliveCellPositions.Contains(aliveCellPosition))
+                foreach (var aliveCellPosition in aliveCellPositions)
                 {
-                    _aliveCellPositions.Add(aliveCellPosition);
+                    _cells[aliveCellPosition.Row, aliveCellPosition.Column].IsAlive = true;
+                    if (!_aliveCellPositions.Contains(aliveCellPosition))
+                    {
+                        _aliveCellPositions.Add(aliveCellPosition);
+                    }
                 }
             }
         }

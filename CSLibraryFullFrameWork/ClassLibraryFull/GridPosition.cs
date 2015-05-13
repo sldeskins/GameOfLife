@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ClassLibraryFull
 {
+    [Serializable]
     public class GridPosition
     {
         private int _row;

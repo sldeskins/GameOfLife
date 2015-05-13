@@ -149,6 +149,18 @@ Example output:
             Assert.AreEqual(true, cells[row2, col2].IsAlive);
         }
         [TestMethod]
+        public void _setGridCell_setAliveCells_null ()
+        {
+            int rows = 7;
+            int columns = 8;
+            Grid grid = new Grid(rows, columns);
+           
+            grid.setAliveCells(null);
+            var results = grid.getAliveCellPositions();
+            Assert.AreEqual(0, results.Count);
+            Assert.IsInstanceOfType(results, typeof(List<GridPosition>));
+        }
+        [TestMethod]
         public void _setGridCell_GetAliveCells_none ()
         {
             int rows = 7;
