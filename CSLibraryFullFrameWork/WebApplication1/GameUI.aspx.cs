@@ -95,7 +95,8 @@ namespace WebApplication1
         {
             if (trySetGridRowsColumns())
             {
-
+                GridAreaPanel.Controls.Clear();
+                AliveCellPositions = null;
                 _layoutGrid();
 
             }
@@ -111,10 +112,12 @@ namespace WebApplication1
                     btn.ID = string.Format("{0}_{1}", r, c);
                     btn.Click += btn_Click;
                     btn.Load += btn_Load;
+
                     GridAreaPanel.Controls.Add(btn);
                 }
                 GridAreaPanel.Controls.Add(new LiteralControl("</div>"));
             }
+           
         }
         void btn_Load ( object sender, EventArgs e )
         {
@@ -123,7 +126,6 @@ namespace WebApplication1
         }
         private void _setControlText ( Button control )
         {
-
             int r;
             int c;
             getRowColumnFromControlId(control, out r, out c);
