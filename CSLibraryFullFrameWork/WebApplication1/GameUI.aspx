@@ -34,7 +34,7 @@
 
             </div>
             <div>
-                <asp:Button ID="ButtonMakeGameGrid" runat="server" OnClick="ResetLayoutGameGrid" Text="Make Game Grid" />
+                <asp:Button ID="ButtonMakeGameGrid" runat="server" OnClick="ResetGameAndLayoutGrid" Text="Make New Game" />
 
             </div>
         </fieldset>
@@ -46,7 +46,7 @@
 
             </span>
             <div>
-                <asp:Button ID="ButtonGetNextGeneration" runat="server" Text="Get Next Generation" OnClick="GetNextGeneration" />
+                <asp:Button ID="ButtonGetNextGeneration" runat="server" Text="Start / Next Generation" OnClick="GetNextGeneration" />
 
                 <div>
                     <%--   <asp:Button ID="ButtonStart" runat="server" Text="Start" OnClick="StartNextGeneration" />

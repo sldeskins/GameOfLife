@@ -13,29 +13,17 @@ namespace WebApplication1
         #region persistance
         private ClassLibraryFull.GameGrid _grid;
 
-        protected int? NumberOfRows
+        protected Game Game
         {
             get
             {
-                return (int?)ViewState["NumberOfRows"];
+                return (Game)ViewState["Game"];
             }
             set
             {
-                ViewState["NumberOfRows"] = value;
+                ViewState["Game"] = value;
             }
         }
-        protected int? NumberOfColumns
-        {
-            get
-            {
-                return (int?)ViewState["NumberOfColumns"];
-            }
-            set
-            {
-                ViewState["NumberOfColumns"] = value;
-            }
-        }
-
         protected List<GridPosition> AliveCellPositions
         {
             get
@@ -47,63 +35,19 @@ namespace WebApplication1
                 ViewState["AliveCellPositions"] = value;
             }
         }
-        private int GenerationNumber
-        {
-            get
-            {
-                return (int)ViewState["GenerationNumber"];
-            }
-            set
-            {
-                ViewState["GenerationNumber"] = value;
-            }
-        }
-        private int DeathGenerationNumber
-        {
-            get
-            {
-                return (int)ViewState["DeathGenerationNumber"];
-            }
-            set
-            {
-                ViewState["DeathGenerationNumber"] = value;
-            }
-        }
-        //private bool Run
-        //{
-        //    get
-        //    {
-        //        return (bool)ViewState["Run"];
-        //    }
-        //    set
-        //    {
-        //        ViewState["Run"] = value;
-        //    }
-        //}
+
+
         #endregion persistance
 
         protected void Page_Load ( object sender, EventArgs e )
         {
             if (Page.IsPostBack)
             {
-                if (NumberOfRows != null && NumberOfColumns != null)
-                {
-                    _grid = new GameGrid(NumberOfRows.Value, NumberOfColumns.Value);
-                    _grid.setAliveCells(AliveCellPositions);
-                    _putButtonsOnGrid();
-                }
-                //if (Run)
-                //{
-                //    System.Web.UI.Timer timer = new System.Web.UI.Timer();
-
-                //    timer.Enabled = true;
-
-                //    StartNextGeneration(null, new EventArgs());
-                //}
+                _putButtonsOnGrid();
             }
             else
             {
-                //  Run = false;
+                _makeNewGameAndLayoutGrid();
             }
 
         }
@@ -111,7 +55,7 @@ namespace WebApplication1
         #region pagemethods
         protected void UpdateGameGridRowsColumns ( object sender, EventArgs e )
         {
-            if (_trySetGridRowsColumns())
+            if (_trySetRowsColumnsForNewGame())
             {
                 ButtonMakeGameGrid.Enabled = true;
             }
@@ -121,39 +65,53 @@ namespace WebApplication1
             }
 
         }
-        protected void ResetLayoutGameGrid ( object sender, EventArgs e )
+        protected void ResetGameAndLayoutGrid ( object sender, EventArgs e )
         {
-            GenerationNumber = 0;
-            DeathGenerationNumber = 0;
-            AliveCellPositions = null;
-            _resetLayoutGameGrid();
-            _putMessage(string.Format("Click to make cells alive or dead."));
-
+            _makeNewGameAndLayoutGrid();
         }
-        private void _resetLayoutGameGrid ()
+        private void _makeNewGameAndLayoutGrid ()
         {
-            if (_trySetGridRowsColumns())
+            AliveCellPositions = null;
+            if (_trySetRowsColumnsForNewGame())
+            {
+                Game game = new Game();
+                game.StartNewGame(int.Parse(TextBoxRows.Text), int.Parse(TextBoxColumns.Text));
+                Game = game;
+                _layoutEmptyGameGrid();
+                _turnTimerOnOff();
+            }
+        }
+        private void _layoutEmptyGameGrid ()
+        {
+            if (_trySetRowsColumnsForNewGame())
             {
                 GridAreaPanel.Controls.Clear();
                 _putButtonsOnGrid();
+                _putMessage(string.Format("Click to make cells alive or dead."));
+            }
+        }
+        private void _setAliveOnLayoutGameGrid ( List<GridPosition> alivePositions )
+        {
+            if (alivePositions != null)
+            {
+                if (alivePositions.Count > 0)
+                {
+                    foreach (var aliveCellPosition in alivePositions)
+                    {
+                        var control = this.FindControl(string.Format("{0}_{1}", aliveCellPosition.Row, aliveCellPosition.Column));
+                        _setButtonControlAliveDeadStyling((Button)control);
+                    }
+                }
             }
         }
         protected void GetNextGeneration ( object sender, EventArgs e )
         {
             _getNextGeneration();
         }
-        //protected void StartNextGeneration ( object sender, EventArgs e )
-        //{
-        //    Run = true;
 
-        //    _getNextGeneration();
-        //    Thread.Sleep(1000);
+        #endregion pagemethods
+        #region timer methods
 
-        //}
-        //protected void StopNextGeneration ( object sender, EventArgs e )
-        //{
-        //    Run = false;
-        //}
         protected void UpdateTimerInterval ( object sender, EventArgs e )
         {
             int seconds;
@@ -165,7 +123,11 @@ namespace WebApplication1
         }
         protected void TurnTimerOnOff ( object sender, EventArgs e )
         {
+            _turnTimerOnOff();
 
+        }
+        private void _turnTimerOnOff ()
+        {
             if (CheckBoxTimeOnOff.Checked)
             {
                 Timer timer = (Timer)FindControl("Timer1");
@@ -176,47 +138,29 @@ namespace WebApplication1
                 Timer timer = (Timer)FindControl("Timer1");
                 timer.Enabled = false;
             }
-
         }
-
-        #endregion pagemethods
-
+        #endregion
 
         protected void _getNextGeneration ()
         {
-            GenerationNumber++;
-            var _newGrid = _grid.getNextGeneration();
-            AliveCellPositions = _newGrid.getAliveCellPositions();
-            _resetLayoutGameGrid();
-            _grid.setAliveCells(AliveCellPositions);
-
-            if (AliveCellPositions != null)
+            Game.GetNextGeneration();
+            _layoutEmptyGameGrid(); 
+            _setAliveOnLayoutGameGrid( Game.AlivePositions);
+            if (Game.SteadyStateGeneration != null)
             {
-                if (AliveCellPositions.Count > 0)
-                {
-                    _putMessage(string.Format(" The current generation is {0}", GenerationNumber));
-
-                    foreach (var AliveCellPosition in AliveCellPositions)
-                    {
-                        var control = this.FindControl(string.Format("{0}_{1}", AliveCellPosition.Row, AliveCellPosition.Column));
-                        _setButtonControlAliveDeadStyling((Button)control);
-                    }
-                }
-                else
-                {
-                    _allDeadTimerStop();
-                    _putMessage(string.Format(" The current generation is {0} and all dead at generation {1}", GenerationNumber, DeathGenerationNumber));
-                }
+                _turnTimerOff();
+                _putMessage(string.Format(" The current generation is {0} and {1} at generation {2}", Game.CurrentGeneration, Game.GameState.ToString(), Game.SteadyStateGeneration));
             }
+            else
+            {
+                _putMessage(string.Format(" The current generation is {0}", Game.CurrentGeneration));
+            }
+            Game = Game;
         }
-        protected void _allDeadTimerStop ()
+        protected void _turnTimerOff ()
         {
-
-            DeathGenerationNumber = GenerationNumber;
             Timer timer = (Timer)FindControl("Timer1");
             timer.Enabled = false;
-
-
         }
         private void _putMessage ( string message )
         {
@@ -225,7 +169,7 @@ namespace WebApplication1
             messageArea.Controls.Add(new LiteralControl(message));
 
         }
-        protected bool _trySetGridRowsColumns ()
+        protected bool _trySetRowsColumnsForNewGame ()
         {
             int rows;
             bool rowsOk = int.TryParse(TextBoxRows.Text, out rows);
@@ -233,21 +177,21 @@ namespace WebApplication1
             int columns;
             bool columnsOk = int.TryParse(TextBoxColumns.Text, out columns);
 
-            if (rowsOk && columnsOk)
+            if (rowsOk && rows > 0 && columnsOk && columns > 0)
             {
-                _grid = new GameGrid(rows, columns);
-                NumberOfRows = rows;
-                NumberOfColumns = columns;
+                _putMessage(string.Format("Valid Row Column ranges"));
                 return true;
             }
             else
             {
+                _putMessage(string.Format("Rows and/or Columns must be greater than 0"));
                 return false;
             }
         }
 
         void _putButtonsOnGrid ( bool enableClick = true )
         {
+            _grid = Game.GameBoard;
             for (int r = 0; r < _grid.Rows; r++)
             {
                 GridAreaPanel.Controls.Add(new LiteralControl("<div>"));
