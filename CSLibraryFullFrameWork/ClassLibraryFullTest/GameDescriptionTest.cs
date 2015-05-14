@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace ClassLibraryFullTest
 {
     [TestClass]
-    public class GridTest
+    public class GameDescriptionTest
     {
         /*
          * Your task is to write a program to calculate the next

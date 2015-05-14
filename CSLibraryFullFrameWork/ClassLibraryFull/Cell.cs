@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ClassLibraryFull
 {
+    [Serializable]
     public class Cell
     {
         private bool _isAlive;

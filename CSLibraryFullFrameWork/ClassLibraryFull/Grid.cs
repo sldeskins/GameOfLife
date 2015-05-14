@@ -5,6 +5,7 @@ using System.Text;
 
 namespace ClassLibraryFull
 {
+    [Serializable]
     public class Grid
     {
         private int _rows;
