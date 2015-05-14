@@ -5,10 +5,3 @@ C:\Exercises\GameOfLife\ClassLibraryFull\ClassLibraryFullTest\bin\Debug\ClassLib
 C:\Exercises\GameOfLife\ClassLibraryFull\ClassLibraryFullTest\bin\Debug\ClassLibraryFull.pdb
 C:\Exercises\GameOfLife\ClassLibraryFull\ClassLibraryFullTest\obj\Debug\ClassLibraryFullTest.dll
 C:\Exercises\GameOfLife\ClassLibraryFull\ClassLibraryFullTest\obj\Debug\ClassLibraryFullTest.pdb
-C:\Exercises\GameOfLife\CSLibraryFullFrameWork\ClassLibraryFullTest\bin\Debug\ClassLibraryFullTest.dll
-C:\Exercises\GameOfLife\CSLibraryFullFrameWork\ClassLibraryFullTest\bin\Debug\ClassLibraryFullTest.pdb
-C:\Exercises\GameOfLife\CSLibraryFullFrameWork\ClassLibraryFullTest\bin\Debug\ClassLibraryFull.dll
-C:\Exercises\GameOfLife\CSLibraryFullFrameWork\ClassLibraryFullTest\bin\Debug\ClassLibraryFull.pdb
-C:\Exercises\GameOfLife\CSLibraryFullFrameWork\ClassLibraryFullTest\obj\Debug\ClassLibraryFullTest.csprojResolveAssemblyReference.cache
-C:\Exercises\GameOfLife\CSLibraryFullFrameWork\ClassLibraryFullTest\obj\Debug\ClassLibraryFullTest.dll
-C:\Exercises\GameOfLife\CSLibraryFullFrameWork\ClassLibraryFullTest\obj\Debug\ClassLibraryFullTest.pdb

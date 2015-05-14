@@ -144,7 +144,19 @@ namespace ClassLibraryFull
             return true;
         }
 
+        private List<SavedGame> _saveGames= new List<SavedGame>();
 
+        public List<SavedGame> SavedGames
+        {
+            get
+            {
+                return _saveGames;
+            }
+            set
+            {
+                _saveGames = value;
+            }
+        }
 
     }
 }

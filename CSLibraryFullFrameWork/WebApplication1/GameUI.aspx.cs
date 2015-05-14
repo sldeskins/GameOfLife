@@ -35,6 +35,17 @@ namespace WebApplication1
                 ViewState["AliveCellPositions"] = value;
             }
         }
+        protected SavedGame SavedGame
+        {
+            get
+            {
+                return (SavedGame)ViewState["SavedGame"];
+            }
+            set
+            {
+                ViewState["SavedGame"] = value;
+            }
+        }
 
 
         #endregion persistance
@@ -65,9 +76,16 @@ namespace WebApplication1
             }
 
         }
+        protected void SaveGame ( object sender, EventArgs e )
+        {
+            _saveGame();
+        }
         protected void ResetGameAndLayoutGrid ( object sender, EventArgs e )
         {
             _makeNewGameAndLayoutGrid();
+            Panel panel = (Panel)FindControl("PanelSaveGameArea");
+            panel.Visible = false;
+
         }
         private void _makeNewGameAndLayoutGrid ()
         {
@@ -78,9 +96,15 @@ namespace WebApplication1
                 game.StartNewGame(int.Parse(TextBoxRows.Text), int.Parse(TextBoxColumns.Text));
                 Game = game;
                 _layoutEmptyGameGrid();
-                _turnTimerOnOff();
+                CheckBoxTimeOnOff.Checked = false;
+
+                SavedGame = new SavedGame();
+                SavedGame.Rows =Game.GameBoard.Rows;
+                SavedGame.Columns = Game.GameBoard.Columns;
+               
             }
         }
+     
         private void _layoutEmptyGameGrid ()
         {
             if (_trySetRowsColumnsForNewGame())
@@ -139,17 +163,29 @@ namespace WebApplication1
                 timer.Enabled = false;
             }
         }
+
+        protected void _turnTimerOff ()
+        {
+            Timer timer = (Timer)FindControl("Timer1");
+            timer.Enabled = false;
+        }
         #endregion
 
         protected void _getNextGeneration ()
         {
             Game.GetNextGeneration();
-            _layoutEmptyGameGrid(); 
-            _setAliveOnLayoutGameGrid( Game.AlivePositions);
+            _layoutEmptyGameGrid();
+            _setAliveOnLayoutGameGrid(Game.AlivePositions);
             if (Game.SteadyStateGeneration != null)
             {
                 _turnTimerOff();
                 _putMessage(string.Format(" The current generation is {0} and {1} at generation {2}", Game.CurrentGeneration, Game.GameState.ToString(), Game.SteadyStateGeneration));
+
+                SavedGame.EndGeneration = (int)Game.SteadyStateGeneration;
+                SavedGame.EndState = Game.GameState;
+
+                Panel panel = (Panel)FindControl("PanelSaveGameArea");
+                panel.Visible = true;
             }
             else
             {
@@ -157,10 +193,15 @@ namespace WebApplication1
             }
             Game = Game;
         }
-        protected void _turnTimerOff ()
+        private void _saveGame ()
         {
-            Timer timer = (Timer)FindControl("Timer1");
-            timer.Enabled = false;
+            Game.SavedGames.Add(SavedGame);
+            SavedGame = null;
+            Panel panel = (Panel)FindControl("PanelSaveGameArea");
+            panel.Visible = false;
+         
+            _putMessage(string.Format("There are now {0} saved games.", Game.SavedGames.Count));
+
         }
         private void _putMessage ( string message )
         {
@@ -250,6 +291,8 @@ namespace WebApplication1
             }
             _setButtonControlAliveDeadStyling((Button)control);
             AliveCellPositions = _grid.getAliveCellPositions();
+            SavedGame.InitalAlivePositions = AliveCellPositions;
+
         }
 
         private void _getRowColumnFromControlId ( Control control, out int row, out int column )

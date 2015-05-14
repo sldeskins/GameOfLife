@@ -41,13 +41,16 @@
         <fieldset>
             <span>
                 <asp:Label ID="LabelTimer" runat="server" Text="# of seconds"></asp:Label>
-                <asp:TextBox ID="TextBoxTimer" runat="server" OnTextChanged="UpdateTimerInterval">10</asp:TextBox>
+                <asp:TextBox ID="TextBoxTimer" runat="server" OnTextChanged="UpdateTimerInterval">2</asp:TextBox>
                 <asp:CheckBox ID="CheckBoxTimeOnOff" runat="server" Text="Turn Timer On/Off (Auto Timer starts after next generation click)" OnCheckedChanged="TurnTimerOnOff" Checked="false" />
 
             </span>
             <div>
                 <asp:Button ID="ButtonGetNextGeneration" runat="server" Text="Start / Next Generation" OnClick="GetNextGeneration" />
-
+                <asp:Panel ID="PanelSaveGameArea" runat="server" Visible="false">
+                     <asp:Button ID="ButtonSaveGame" runat="server" Text="Click Here to Save Game" OnClick="SaveGame" />
+                    <asp:TextBox ID="TextBoxSavedDescription" runat="server">&lg; put saved game description here&gt;</asp:TextBox>
+               </asp:Panel>
                 <div>
                     <%--   <asp:Button ID="ButtonStart" runat="server" Text="Start" OnClick="StartNextGeneration" />
                       <asp:Button ID="ButtonPause" runat="server" Text="Pause" />

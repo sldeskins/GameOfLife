@@ -5,6 +5,5 @@ C:\Exercises\GameOfLife\ClassLibraryFull\ClassLibraryFull\obj\Debug\ClassLibrary
 C:\Exercises\GameOfLife\ClassLibraryFull\ClassLibraryFull\obj\Debug\ClassLibraryFull.pdb
 C:\Exercises\GameOfLife\CSLibraryFullFrameWork\ClassLibraryFull\bin\Debug\ClassLibraryFull.dll
 C:\Exercises\GameOfLife\CSLibraryFullFrameWork\ClassLibraryFull\bin\Debug\ClassLibraryFull.pdb
-C:\Exercises\GameOfLife\CSLibraryFullFrameWork\ClassLibraryFull\obj\Debug\ClassLibraryFull_CS.csprojResolveAssemblyReference.cache
 C:\Exercises\GameOfLife\CSLibraryFullFrameWork\ClassLibraryFull\obj\Debug\ClassLibraryFull.dll
 C:\Exercises\GameOfLife\CSLibraryFullFrameWork\ClassLibraryFull\obj\Debug\ClassLibraryFull.pdb
