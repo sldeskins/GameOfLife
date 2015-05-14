@@ -22,6 +22,24 @@ namespace WebApplication1 {
         protected global::System.Web.UI.HtmlControls.HtmlForm formSetGameGrid;
         
         /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        
+        /// <summary>
+        /// Timer1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.Timer Timer1;
+        
+        /// <summary>
         /// LabelRows control.
         /// </summary>
         /// <remarks>
@@ -49,13 +67,13 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.Label LabelColumns;
         
         /// <summary>
-        /// TextBoxCoulumns control.
+        /// TextBoxColumns control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBoxCoulumns;
+        protected global::System.Web.UI.WebControls.TextBox TextBoxColumns;
         
         /// <summary>
         /// ButtonMakeGameGrid control.
@@ -74,6 +92,15 @@ namespace WebApplication1 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button ButtonGetNextGeneration;
+        
+        /// <summary>
+        /// gameMessageArea control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel gameMessageArea;
         
         /// <summary>
         /// GridAreaPanel control.

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ClassLibraryFull;
+using System.Threading;
 
 namespace WebApplication1
 {
@@ -46,6 +47,28 @@ namespace WebApplication1
                 ViewState["AliveCellPositions"] = value;
             }
         }
+        private int GenerationNumber
+        {
+            get
+            {
+                return (int)ViewState["GenerationNumber"];
+            }
+            set
+            {
+                ViewState["GenerationNumber"] = value;
+            }
+        }
+        //private bool Run
+        //{
+        //    get
+        //    {
+        //        return (bool)ViewState["Run"];
+        //    }
+        //    set
+        //    {
+        //        ViewState["Run"] = value;
+        //    }
+        //}
         #endregion persistance
 
         protected void Page_Load ( object sender, EventArgs e )
@@ -58,6 +81,18 @@ namespace WebApplication1
                     _grid.setAliveCells(AliveCellPositions);
                     _putButtonsOnGrid();
                 }
+                //if (Run)
+                //{
+                //    System.Web.UI.Timer timer = new System.Web.UI.Timer();
+
+                //    timer.Enabled = true;
+
+                //    StartNextGeneration(null, new EventArgs());
+                //}
+            }
+            else
+            {
+              //  Run = false;
             }
 
         }
@@ -77,8 +112,11 @@ namespace WebApplication1
         }
         protected void ResetLayoutGameGrid ( object sender, EventArgs e )
         {
+            GenerationNumber = 0;
             AliveCellPositions = null;
             _resetLayoutGameGrid();
+            _putMessage(string.Format("Click to make cells alive or dead."));
+
         }
         private void _resetLayoutGameGrid ()
         {
@@ -90,30 +128,55 @@ namespace WebApplication1
         }
         protected void GetNextGeneration ( object sender, EventArgs e )
         {
-        var _newGrid=    _grid.getNextGeneration();
-        AliveCellPositions = _newGrid.getAliveCellPositions();
+            _getNextGeneration();
+        }
+        //protected void StartNextGeneration ( object sender, EventArgs e )
+        //{
+        //    Run = true;
+
+        //    _getNextGeneration();
+        //    Thread.Sleep(1000);
+         
+        //}
+        //protected void StopNextGeneration ( object sender, EventArgs e )
+        //{
+        //    Run = false;
+        //}
+        #endregion pagemethods
+
+ 
+        protected void _getNextGeneration ()
+        {
+            GenerationNumber++;
+            var _newGrid = _grid.getNextGeneration();
+            AliveCellPositions = _newGrid.getAliveCellPositions();
             _resetLayoutGameGrid();
             _grid.setAliveCells(AliveCellPositions);
 
-            var messageArea=FindControl("gameMessageArea");
-           //<<
+            _putMessage(string.Format(" The current generation is {0}", GenerationNumber));
+
             if (AliveCellPositions != null)
             {
                 foreach (var AliveCellPosition in AliveCellPositions)
                 {
                     var control = this.FindControl(string.Format("{0}_{1}", AliveCellPosition.Row, AliveCellPosition.Column));
-                    _setButtonControlText((Button)control);
+                    _setButtonControlAliveDeadStyling((Button)control);
                 }
-            }
+            }}
+        private void _putMessage ( string message )
+        {
+            var messageArea = FindControl("gameMessageArea");
+            messageArea.Controls.Clear();
+            messageArea.Controls.Add(new LiteralControl(message));
+
         }
-        #endregion pagemethods
         protected bool _trySetGridRowsColumns ()
         {
             int rows;
             bool rowsOk = int.TryParse(TextBoxRows.Text, out rows);
 
             int columns;
-            bool columnsOk = int.TryParse(TextBoxCoulumns.Text, out columns);
+            bool columnsOk = int.TryParse(TextBoxColumns.Text, out columns);
 
             if (rowsOk && columnsOk)
             {
@@ -127,8 +190,8 @@ namespace WebApplication1
                 return false;
             }
         }
-       
-        void _putButtonsOnGrid (bool enableClick=true)
+
+        void _putButtonsOnGrid ( bool enableClick = true )
         {
             for (int r = 0; r < _grid.Rows; r++)
             {
@@ -145,22 +208,26 @@ namespace WebApplication1
                 }
                 GridAreaPanel.Controls.Add(new LiteralControl("</div>"));
             }
-           
+
         }
         void _btn_Load ( object sender, EventArgs e )
         {
             var control = (Button)sender;
-            _setButtonControlText(control);
+            _setButtonControlAliveDeadStyling(control);
         }
-        private void _setButtonControlText ( Button control )
+        private void _setButtonControlAliveDeadStyling ( Button control )
         {
             int r;
             int c;
             _getRowColumnFromControlId(control, out r, out c);
+
+            control.Height = 20;
+            control.Width = 20;
+
             if (_grid.getCell(r, c).IsAlive)
             {
                 control.Text = "O";
-                control.BackColor =System.Drawing.Color.Green;
+                control.BackColor = System.Drawing.Color.Green;
             }
             else
             {
@@ -182,7 +249,7 @@ namespace WebApplication1
             {
                 _grid.setAliveCell(r, c);
             }
-            _setButtonControlText((Button)control);
+            _setButtonControlAliveDeadStyling((Button)control);
             AliveCellPositions = _grid.getAliveCellPositions();
         }
 
