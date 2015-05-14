@@ -85,6 +85,33 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.Button ButtonMakeGameGrid;
         
         /// <summary>
+        /// LabelTimer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelTimer;
+        
+        /// <summary>
+        /// TextBoxTimer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxTimer;
+        
+        /// <summary>
+        /// CheckBoxTimeOnOff control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBoxTimeOnOff;
+        
+        /// <summary>
         /// ButtonGetNextGeneration control.
         /// </summary>
         /// <remarks>

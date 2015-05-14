@@ -6,7 +6,7 @@ using System.Text;
 namespace ClassLibraryFull
 {
     [Serializable]
-    public class Grid
+    public class GameGrid
     {
         private int _rows;
         private int _columns;
@@ -17,7 +17,7 @@ namespace ClassLibraryFull
         private List<GridPosition> _deadCellsWithLiveNeighborPositions = new List<GridPosition>();
 
 
-        public Grid ( int rows, int columns )
+        public GameGrid ( int rows, int columns )
         {
             _rows = rows;
             _columns = columns;
@@ -140,9 +140,9 @@ namespace ClassLibraryFull
             }
             return result;
         }
-        public Grid getNextGeneration ()
+        public GameGrid getNextGeneration ()
         {
-            Grid nextGenGrid = new Grid(_rows, _columns);
+            GameGrid nextGenGrid = new GameGrid(_rows, _columns);
             List<GridPosition> nextGenAlivePositions = new List<GridPosition>();
 
             checkDeadNeighborsOfLiveCells();

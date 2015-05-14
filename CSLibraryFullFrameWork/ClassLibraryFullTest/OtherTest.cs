@@ -13,7 +13,7 @@ namespace ClassLibraryFullTest
         [TestMethod]
         public void Test_GameIsSerializable ()
         {
-            Assembly assembly = Assembly.GetAssembly(typeof(Grid));
+            Assembly assembly = Assembly.GetAssembly(typeof(GameGrid));
             Type[] types = assembly.GetTypes();
 
             StringBuilder notSerializedTypes = new StringBuilder();

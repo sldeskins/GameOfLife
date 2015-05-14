@@ -40,7 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cell.cs" />
-    <Compile Include="Grid.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="GameStateEnum.cs" />
+    <Compile Include="GameGrid.cs" />
     <Compile Include="GridPosition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -5,14 +5,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ClassLibraryFull;
-using System.Threading;
 
 namespace WebApplication1
 {
     public partial class GameUI : System.Web.UI.Page
     {
         #region persistance
-        private ClassLibraryFull.Grid _grid;
+        private ClassLibraryFull.GameGrid _grid;
 
         protected int? NumberOfRows
         {
@@ -36,6 +35,7 @@ namespace WebApplication1
                 ViewState["NumberOfColumns"] = value;
             }
         }
+
         protected List<GridPosition> AliveCellPositions
         {
             get
@@ -58,6 +58,17 @@ namespace WebApplication1
                 ViewState["GenerationNumber"] = value;
             }
         }
+        private int DeathGenerationNumber
+        {
+            get
+            {
+                return (int)ViewState["DeathGenerationNumber"];
+            }
+            set
+            {
+                ViewState["DeathGenerationNumber"] = value;
+            }
+        }
         //private bool Run
         //{
         //    get
@@ -77,7 +88,7 @@ namespace WebApplication1
             {
                 if (NumberOfRows != null && NumberOfColumns != null)
                 {
-                    _grid = new Grid(NumberOfRows.Value, NumberOfColumns.Value);
+                    _grid = new GameGrid(NumberOfRows.Value, NumberOfColumns.Value);
                     _grid.setAliveCells(AliveCellPositions);
                     _putButtonsOnGrid();
                 }
@@ -92,7 +103,7 @@ namespace WebApplication1
             }
             else
             {
-              //  Run = false;
+                //  Run = false;
             }
 
         }
@@ -113,6 +124,7 @@ namespace WebApplication1
         protected void ResetLayoutGameGrid ( object sender, EventArgs e )
         {
             GenerationNumber = 0;
+            DeathGenerationNumber = 0;
             AliveCellPositions = null;
             _resetLayoutGameGrid();
             _putMessage(string.Format("Click to make cells alive or dead."));
@@ -136,15 +148,40 @@ namespace WebApplication1
 
         //    _getNextGeneration();
         //    Thread.Sleep(1000);
-         
+
         //}
         //protected void StopNextGeneration ( object sender, EventArgs e )
         //{
         //    Run = false;
         //}
+        protected void UpdateTimerInterval ( object sender, EventArgs e )
+        {
+            int seconds;
+            if (int.TryParse(TextBoxTimer.Text, out seconds))
+            {
+                Timer timer = (Timer)FindControl("Timer1");
+                timer.Interval = 100 * seconds;
+            }
+        }
+        protected void TurnTimerOnOff ( object sender, EventArgs e )
+        {
+
+            if (CheckBoxTimeOnOff.Checked)
+            {
+                Timer timer = (Timer)FindControl("Timer1");
+                timer.Enabled = true;
+            }
+            else
+            {
+                Timer timer = (Timer)FindControl("Timer1");
+                timer.Enabled = false;
+            }
+
+        }
+
         #endregion pagemethods
 
- 
+
         protected void _getNextGeneration ()
         {
             GenerationNumber++;
@@ -153,16 +190,34 @@ namespace WebApplication1
             _resetLayoutGameGrid();
             _grid.setAliveCells(AliveCellPositions);
 
-            _putMessage(string.Format(" The current generation is {0}", GenerationNumber));
-
             if (AliveCellPositions != null)
             {
-                foreach (var AliveCellPosition in AliveCellPositions)
+                if (AliveCellPositions.Count > 0)
                 {
-                    var control = this.FindControl(string.Format("{0}_{1}", AliveCellPosition.Row, AliveCellPosition.Column));
-                    _setButtonControlAliveDeadStyling((Button)control);
+                    _putMessage(string.Format(" The current generation is {0}", GenerationNumber));
+
+                    foreach (var AliveCellPosition in AliveCellPositions)
+                    {
+                        var control = this.FindControl(string.Format("{0}_{1}", AliveCellPosition.Row, AliveCellPosition.Column));
+                        _setButtonControlAliveDeadStyling((Button)control);
+                    }
                 }
-            }}
+                else
+                {
+                    _allDeadTimerStop();
+                    _putMessage(string.Format(" The current generation is {0} and all dead at generation {1}", GenerationNumber, DeathGenerationNumber));
+                }
+            }
+        }
+        protected void _allDeadTimerStop ()
+        {
+
+            DeathGenerationNumber = GenerationNumber;
+            Timer timer = (Timer)FindControl("Timer1");
+            timer.Enabled = false;
+
+
+        }
         private void _putMessage ( string message )
         {
             var messageArea = FindControl("gameMessageArea");
@@ -180,7 +235,7 @@ namespace WebApplication1
 
             if (rowsOk && columnsOk)
             {
-                _grid = new Grid(rows, columns);
+                _grid = new GameGrid(rows, columns);
                 NumberOfRows = rows;
                 NumberOfColumns = columns;
                 return true;

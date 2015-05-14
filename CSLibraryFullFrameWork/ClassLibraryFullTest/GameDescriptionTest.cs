@@ -45,7 +45,7 @@ Example output:
         [TestMethod]
         public void YouStartWithATwoDimensionalGrid ()
         {
-            Grid grid = new Grid(7, 8);
+            GameGrid grid = new GameGrid(7, 8);
             Assert.AreEqual(7, grid.Rows);
             Assert.AreEqual(8, grid.Columns);
         }
@@ -75,7 +75,7 @@ Example output:
         [TestMethod]
         public void _getGridCells ()
         {
-            Grid grid = new Grid(7, 8);
+            GameGrid grid = new GameGrid(7, 8);
             Cell[,] gridCells = grid.getCells();
             Assert.AreEqual(56, gridCells.Length);
             Assert.IsInstanceOfType(gridCells[1, 1], typeof(Cell));
@@ -87,7 +87,7 @@ Example output:
         {
             int rows = 7;
             int columns = 8;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
 
             int row = 2;
             int column = 3;
@@ -98,7 +98,7 @@ Example output:
         {
             int rows = 7;
             int columns = 8;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
 
             int row = 2;
             int column = 3;
@@ -125,7 +125,7 @@ Example output:
         {
             int rows = 7;
             int columns = 8;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
 
             //setup
             int row1 = 1;
@@ -153,7 +153,7 @@ Example output:
         {
             int rows = 7;
             int columns = 8;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
            
             grid.setAliveCells(null);
             var results = grid.getAliveCellPositions();
@@ -165,7 +165,7 @@ Example output:
         {
             int rows = 7;
             int columns = 8;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
             List<GridPosition> cellsAreAlive = grid.getAliveCellPositions();
             Assert.AreEqual(0, cellsAreAlive.Count);
 
@@ -175,7 +175,7 @@ Example output:
         {
             int rows = 2;
             int columns = 4;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
 
             //setup
             int row1 = 1;
@@ -213,7 +213,7 @@ Example output:
         {
             int rows = 2;
             int columns = 3;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
 
             //
             //setup
@@ -255,7 +255,7 @@ Example output:
         {
             int rows = 3;
             int columns = 3;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
             //
             int count = grid.getCountLiveNeigborsForPosition(new GridPosition(-1, -1));
             Assert.AreEqual(0, count);
@@ -271,7 +271,7 @@ Example output:
             //000
             int rows = 3;
             int columns = 3;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
             int count = grid.getCountLiveNeigborsForPosition(new GridPosition(0, 0));
             Assert.AreEqual(0, count);
         }
@@ -283,7 +283,7 @@ Example output:
             //000
             int rows = 3;
             int columns = 3;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
             grid.setAliveCell(0, 1);
 
             int count = grid.getCountLiveNeigborsForPosition(new GridPosition(0, 0));
@@ -297,7 +297,7 @@ Example output:
             //000
             int rows = 3;
             int columns = 3;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
             grid.setAliveCell(0, 1);
             grid.setAliveCell(0, 0);
             int count = grid.getCountLiveNeigborsForPosition(new GridPosition(0, 0));
@@ -311,7 +311,7 @@ Example output:
             //10_
             int rows = 3;
             int columns = 3;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
             grid.setAliveCell(0, 0);
             grid.setAliveCell(1, 1);
             grid.setAliveCell(1, 2);
@@ -328,7 +328,7 @@ Example output:
             //11_
             int rows = 3;
             int columns = 3;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
             grid.setAliveCell(0, 0);
             grid.setAliveCell(0, 1);
             grid.setAliveCell(0, 2);
@@ -349,7 +349,7 @@ Example output:
             //111
             int rows = 3;
             int columns = 3;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
             grid.setAliveCell(0, 0);
             grid.setAliveCell(0, 1);
             grid.setAliveCell(0, 2);
@@ -370,7 +370,7 @@ Example output:
             //101
             int rows = 3;
             int columns = 3;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
             grid.setAliveCell(0, 0);
             //grid.setAliveCell(0, 1);
             grid.setAliveCell(0, 2);
@@ -396,7 +396,7 @@ Cell next gen rules
             //010
             int rows = 3;
             int columns = 3;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
 
             //grid.setAliveCell(0, 0);
             //grid.setAliveCell(0, 1);
@@ -408,7 +408,7 @@ Cell next gen rules
             grid.setAliveCell(2, 1);
             //grid.setAliveCell(2, 2);
 
-            Grid nextGenerationGrid = grid.getNextGeneration();
+            GameGrid nextGenerationGrid = grid.getNextGeneration();
             Assert.AreEqual(grid.Rows, nextGenerationGrid.Rows);
             Assert.AreEqual(grid.Columns, nextGenerationGrid.Columns);
 
@@ -432,7 +432,7 @@ Cell next gen rules
             //000
             int rows = 3;
             int columns = 3;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
 
             //grid.setAliveCell(0, 0);
             grid.setAliveCell(0, 1);
@@ -444,7 +444,7 @@ Cell next gen rules
             // grid.setAliveCell(2, 1);
             // grid.setAliveCell(2, 2);
 
-            Grid nextGenerationGrid = grid.getNextGeneration();
+            GameGrid nextGenerationGrid = grid.getNextGeneration();
             Assert.AreEqual(grid.Rows, nextGenerationGrid.Rows);
             Assert.AreEqual(grid.Columns, nextGenerationGrid.Columns);
 
@@ -472,7 +472,7 @@ Cell next gen rules
             //011
             int rows = 3;
             int columns = 3;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
 
             grid.setAliveCell(0, 0);
             //grid.setAliveCell(0, 1);
@@ -494,7 +494,7 @@ Cell next gen rules
             Assert.AreEqual(2, grid.getCountLiveNeigborsForPosition(new GridPosition(2, 1)));
             Assert.AreEqual(2, grid.getCountLiveNeigborsForPosition(new GridPosition(2, 2)));
             //
-            Grid nextGenerationGrid = grid.getNextGeneration();
+            GameGrid nextGenerationGrid = grid.getNextGeneration();
             Assert.AreEqual(grid.Rows, nextGenerationGrid.Rows);
             Assert.AreEqual(grid.Columns, nextGenerationGrid.Columns);
 
@@ -540,13 +540,13 @@ Cell next gen rules
              */
             int rows = 4;
             int columns = 8;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
 
             grid.setAliveCell(1, 4);
             grid.setAliveCell(2, 3);
             grid.setAliveCell(2, 4);
 
-            Grid nextGenerationGrid = grid.getNextGeneration();
+            GameGrid nextGenerationGrid = grid.getNextGeneration();
             Assert.AreEqual(grid.Rows, nextGenerationGrid.Rows);
             Assert.AreEqual(grid.Columns, nextGenerationGrid.Columns);
 
@@ -563,7 +563,7 @@ Cell next gen rules
         {
             int rows = 7;
             int columns = 8;
-            Grid grid = new Grid(rows, columns);
+            GameGrid grid = new GameGrid(rows, columns);
 
             int row = 2;
             int column = 3;
