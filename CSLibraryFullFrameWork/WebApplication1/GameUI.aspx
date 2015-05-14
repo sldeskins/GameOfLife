@@ -48,9 +48,9 @@
             <div>
                 <asp:Button ID="ButtonGetNextGeneration" runat="server" Text="Start / Next Generation" OnClick="GetNextGeneration" />
                 <asp:Panel ID="PanelSaveGameArea" runat="server" Visible="false">
-                     <asp:Button ID="ButtonSaveGame" runat="server" Text="Click Here to Save Game" OnClick="SaveGame" />
+                    <asp:Button ID="ButtonSaveGame" runat="server" Text="Click Here to Save Game" OnClick="SaveGame" />
                     <asp:TextBox ID="TextBoxSavedDescription" runat="server">&lg; put saved game description here&gt;</asp:TextBox>
-               </asp:Panel>
+                </asp:Panel>
                 <div>
                     <%--   <asp:Button ID="ButtonStart" runat="server" Text="Start" OnClick="StartNextGeneration" />
                       <asp:Button ID="ButtonPause" runat="server" Text="Pause" />
