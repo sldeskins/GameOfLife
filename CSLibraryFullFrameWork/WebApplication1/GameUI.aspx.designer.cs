@@ -67,31 +67,13 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.Button ButtonMakeGameGrid;
         
         /// <summary>
-        /// ButtonStart control.
+        /// ButtonGetNextGeneration control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonStart;
-        
-        /// <summary>
-        /// ButtonPause control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonPause;
-        
-        /// <summary>
-        /// ButtonStop control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonStop;
+        protected global::System.Web.UI.WebControls.Button ButtonGetNextGeneration;
         
         /// <summary>
         /// GridAreaPanel control.

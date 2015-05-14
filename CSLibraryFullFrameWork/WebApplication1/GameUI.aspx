@@ -21,17 +21,17 @@
                     <asp:TextBox ID="TextBoxCoulumns" runat="server" OnTextChanged="UpdateGameGridRowsColumns">30</asp:TextBox>
                 </div>
             </div>
-            <asp:Button ID="ButtonMakeGameGrid" runat="server" OnClick="LayoutGameGrid" Text="Make Game Grid" />
+            <asp:Button ID="ButtonMakeGameGrid" runat="server" OnClick="ResetLayoutGameGrid" Text="Make Game Grid" />
         </fieldset>
         <fieldset>
             <span>
-                <asp:Button ID="ButtonStart" runat="server" Text="Start" />
+                <asp:Button ID="ButtonGetNextGeneration" runat="server" Text="Get Next Generation" OnClick="GetNextGeneration" />
+<%--                <asp:Button ID="ButtonStart" runat="server" Text="Start" />
                 <asp:Button ID="ButtonPause" runat="server" Text="Pause" />
-                <asp:Button ID="ButtonStop" runat="server" Text="Stop" />
+                <asp:Button ID="ButtonStop" runat="server" Text="Stop" />--%>
             </span>
         </fieldset>
         <div id="gameMessageArea">
-            Set Game Grid Size. 
         </div>
 
         <asp:Panel ID="GridAreaPanel" runat="server">
