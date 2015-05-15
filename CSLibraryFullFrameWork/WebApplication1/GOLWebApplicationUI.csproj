@@ -58,6 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GameUI.aspx" />
+    <Content Include="GOL_HtmlJavascript.html" />
+    <Content Include="GOL_JavaScript.js" />
     <Content Include="Index.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>

@@ -171,7 +171,7 @@ namespace GOLWebApplicationUI
             if (haveValidRowsColumnsData)
             {
                 Game game = new Game();
-                game.StartNewGame(r, c, AliveCellPositions); 
+                game.StartNewGame(r, c, AliveCellPositions);
                 Game = game;
                 _layoutEmptyGameGrid();
                 CheckBoxTimeOnOff.Checked = false;
@@ -223,7 +223,7 @@ namespace GOLWebApplicationUI
                 SavedGame.EndGeneration = (int)Game.SteadyStateGeneration;
                 SavedGame.EndState = Game.GameState;
 
-                if (Game.GameFeatures.Contains(GameFeaturesEnum.ReplayGame) && SavedGame!=null)
+                if (Game.GameFeatures.Contains(GameFeaturesEnum.ReplayGame) && SavedGame != null)
                 {
                     Button panel = (Button)FindControl("ButtonReplayGame");
                     panel.Enabled = true;

@@ -10,7 +10,7 @@ namespace CS_GOL_LibraryFull
         Basic,
         ReplayGame,
         SaveGames
-      //  GameLibrary,
-//CellPictureStyling
+        //GameLibrary,
+        //CellPictureStyling
     }
 }

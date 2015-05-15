@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>GOL Javascript</title>
+    <script src="GOL_JavaScript.js"></script>
+
+</head>
+<body>
+    <h1>Game of Life</h1>
+    <!--<h2>by sldeskins</h2>-->
+
+    <form id="formSetGameGrid">
+
+
+        <fieldset title="Game Controls">
+            <legend>Game Controls</legend>
+            <div>
+                <div>
+                    <label id="LabelRows" text="rows"># of rows:</label>
+                    <input id="TextBoxRows" type="text" onclick="GOL.UpdateGameGridRowsColumns()" />
+                </div>
+                <div>
+                    <label id="LabelColumns" text="columns"># of columns:</label>
+                    <input id="TextBoxColumns" type="text" onclick="GOL.UpdateGameGridRowsColumns()" />
+                </div>
+            </div>
+            <div>
+                <input id="ButtonMakeGameGrid" type="button" text="New Game" value="Make New Game" onclick="GOL.ResetGameAndLayoutGrid()">
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Game Play Controls</legend>
+            <span>
+                <!--<asp:Timer ID="Timer1" OnTick="Timer1_Tick" runat="server" Interval="2000" Enabled="false" />-->
+                <label id="LabelRows" text="seconds"># of seconds:</label>
+                <input id="TextBoxTimer" type="Text" onchange="GOL.UpdateTimerInterval()" />
+                <input id="CheckBoxTimeOnOff" type="checkbox" text="Turn Timer On/Off (Auto Timer starts after next generation click)" value="" oncheckedchanged=" turntimeronoff" checked="checked" />
+            </span>
+            <div>
+                <span>
+                    <input id="ButtonGetNextGeneration" type="button" text="Start Next Generation" value="Start / Next Generation" onclick="GOL.GetNextGeneration()" />
+                </span>
+                <span id="PanelReplayGameArea">
+                    <input type="button" id="ButtonReplayGame" text="Click Reset Inital State of Last Game" value="Click Reset Inital State of Last Game" onclick="GOL.ReplayGame()" enabled="false" />
+                </span>
+                <div id="PanelSaveGameArea" style="visibility:hidden">
+                    <input type="button" id="ButtonSaveGame" text="Click Here to Save Game" onclick="SaveGame" />
+                    <input type="text" id="textboxsaveddescription" text="&lt; put saved game description here&gt" />
+                </div>
+
+            </div>
+
+        </fieldset>
+        <div id="gameMessageArea">
+            Make a Game Grid
+        </div>
+
+
+
+        <div id="GridAreaPanel">
+            <!--<triggers>
+                <asp:asyncpostbacktrigger controlid="Timer1" />
+            </trigger-->
+        </div>
+
+        <input type="button" value="Start count!" onclick="doTimer" />
+        <input type="text" id="txt" />
+        <input type="button" value="Stop count!" onclick="stopCount()" />
+    </form>
+</body>
+</html>
