@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
-using ClassLibraryFull;
+using CS_GOL_LibraryFull;
 using System.Collections.Generic;
 using System.Text;
 

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibraryFull_CS", "ClassLibraryFull\ClassLibraryFull_CS.csproj", "{DFE570B8-451C-459B-8D4E-C9FC225A4047}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CS_GOL_Core_LibraryFull", "ClassLibraryFull\CS_GOL_Core_LibraryFull.csproj", "{DFE570B8-451C-459B-8D4E-C9FC225A4047}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibraryFullTest", "ClassLibraryFullTest\ClassLibraryFullTest.csproj", "{4A7AF71A-F350-40BD-B7D9-F52CEF018709}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CS_GOL_Core_LibraryFullTest", "ClassLibraryFullTest\CS_GOL_Core_LibraryFullTest.csproj", "{4A7AF71A-F350-40BD-B7D9-F52CEF018709}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationUI", "WebApplication1\WebApplicationUI.csproj", "{61A91677-7253-485B-9712-7AB16544E288}"
 EndProject

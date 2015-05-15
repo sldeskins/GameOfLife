@@ -79,9 +79,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibraryFull\ClassLibraryFull_CS.csproj">
+    <ProjectReference Include="..\ClassLibraryFull\CS_GOL_Core_LibraryFull.csproj">
       <Project>{dfe570b8-451c-459b-8d4e-c9fc225a4047}</Project>
-      <Name>ClassLibraryFull_CS</Name>
+      <Name>CS_GOL_Core_LibraryFull</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

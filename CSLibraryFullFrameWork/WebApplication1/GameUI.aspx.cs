@@ -4,14 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using ClassLibraryFull;
+using CS_GOL_LibraryFull;
 
 namespace WebApplication1
 {
     public partial class GameUI : System.Web.UI.Page
     {
         #region persistance
-        private ClassLibraryFull.GameGrid _grid;
+        private GameGrid _grid;
 
         protected Game Game
         {
