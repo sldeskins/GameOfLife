@@ -39,7 +39,7 @@
         </fieldset>
         <fieldset>
             <span>
-                <asp:Timer ID="Timer1" OnTick="Timer1_Tick" runat="server" Interval="2000" Enabled="false" />        
+                <asp:Timer ID="Timer1" OnTick="Timer1_Tick" runat="server" Interval="2000" Enabled="false" />
                 <asp:Label ID="LabelTimer" runat="server" Text="# of seconds"></asp:Label>
                 <asp:TextBox ID="TextBoxTimer" runat="server" OnTextChanged="UpdateTimerInterval">2</asp:TextBox>
                 <asp:CheckBox ID="CheckBoxTimeOnOff" runat="server" Text="Turn Timer On/Off (Auto Timer starts after next generation click)" OnCheckedChanged="TurnTimerOnOff" Checked="false" />
@@ -51,11 +51,9 @@
                     <asp:Button ID="ButtonSaveGame" runat="server" Text="Click Here to Save Game" OnClick="SaveGame" />
                     <asp:TextBox ID="TextBoxSavedDescription" runat="server">&lt; put saved game description here&gt;</asp:TextBox>
                 </asp:Panel>
-                <div>
-                    <%--   <asp:Button ID="ButtonStart" runat="server" Text="Start" OnClick="StartNextGeneration" />
-                      <asp:Button ID="ButtonPause" runat="server" Text="Pause" />
-                    <asp:Button ID="ButtonStop" runat="server" Text="Stop" OnClick="StopNextGeneration" />--%>
-                </div>
+                <asp:Panel ID="PanelReplayGameArea" runat="server" Visible="false">
+                    <asp:Button ID="ButtonReplayGame" runat="server" Text="Click Here to Replay Game" OnClick="ReplayGame" />
+                </asp:Panel>
             </div>
 
         </fieldset>

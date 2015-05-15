@@ -80,6 +80,13 @@ namespace WebApplication1
         {
             _saveGame();
         }
+        protected void ReplayGame ( object sender, EventArgs e )
+        {
+            _replayGame();
+        }
+        protected void _replayGame ()
+        {
+        }
         protected void ResetGameAndLayoutGrid ( object sender, EventArgs e )
         {
             _makeNewGameAndLayoutGrid();
