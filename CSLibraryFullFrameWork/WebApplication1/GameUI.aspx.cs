@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using CS_GOL_LibraryFull;
 
-namespace WebApplication1
+namespace GOLWebApplicationUI
 {
     public partial class GameUI : System.Web.UI.Page
     {

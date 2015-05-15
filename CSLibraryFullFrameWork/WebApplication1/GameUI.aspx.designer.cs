@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebApplication1 {
+namespace GOLWebApplicationUI {
     
     
     public partial class GameUI {

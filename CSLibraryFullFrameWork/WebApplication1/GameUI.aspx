@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="GameUI.aspx.cs" Inherits="WebApplication1.GameUI" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="GameUI.aspx.cs" Inherits="GOLWebApplicationUI.GameUI" %>
 
 <!DOCTYPE html>
 
