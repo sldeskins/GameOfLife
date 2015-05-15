@@ -18,7 +18,6 @@
 
     <form id="formSetGameGrid" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
-        <asp:Timer ID="Timer1" OnTick="Timer1_Tick" runat="server" Interval="10000" Enabled="false" />
         <fieldset title="Game Controls">
             <div>
                 <span>
@@ -40,6 +39,7 @@
         </fieldset>
         <fieldset>
             <span>
+                <asp:Timer ID="Timer1" OnTick="Timer1_Tick" runat="server" Interval="2000" Enabled="false" />        
                 <asp:Label ID="LabelTimer" runat="server" Text="# of seconds"></asp:Label>
                 <asp:TextBox ID="TextBoxTimer" runat="server" OnTextChanged="UpdateTimerInterval">2</asp:TextBox>
                 <asp:CheckBox ID="CheckBoxTimeOnOff" runat="server" Text="Turn Timer On/Off (Auto Timer starts after next generation click)" OnCheckedChanged="TurnTimerOnOff" Checked="false" />
@@ -49,7 +49,7 @@
                 <asp:Button ID="ButtonGetNextGeneration" runat="server" Text="Start / Next Generation" OnClick="GetNextGeneration" />
                 <asp:Panel ID="PanelSaveGameArea" runat="server" Visible="false">
                     <asp:Button ID="ButtonSaveGame" runat="server" Text="Click Here to Save Game" OnClick="SaveGame" />
-                    <asp:TextBox ID="TextBoxSavedDescription" runat="server">&lg; put saved game description here&gt;</asp:TextBox>
+                    <asp:TextBox ID="TextBoxSavedDescription" runat="server">&lt; put saved game description here&gt;</asp:TextBox>
                 </asp:Panel>
                 <div>
                     <%--   <asp:Button ID="ButtonStart" runat="server" Text="Start" OnClick="StartNextGeneration" />

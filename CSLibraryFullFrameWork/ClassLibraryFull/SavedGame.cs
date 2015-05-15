@@ -8,8 +8,20 @@ namespace CS_GOL_LibraryFull
     [Serializable]
     public class SavedGame
     {
+        private DateTime _dateTimeSaved;
+        public DateTime SavedDatedTime
+        {
+            get
+            {
+                return _dateTimeSaved;
+            }
+            set
+            {
+                _dateTimeSaved = value;
+            }
+        }
+        
         private List<GameGridPosition> _initalAlivePosistions;
-
         public List<GameGridPosition> InitalAlivePositions
         {
             get

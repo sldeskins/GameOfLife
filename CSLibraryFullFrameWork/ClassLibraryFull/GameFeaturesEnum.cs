@@ -8,6 +8,7 @@ namespace CS_GOL_LibraryFull
     public enum GameFeaturesEnum
     {
         Basic,
+        ReplayGame,
         SaveGames
       //  GameLibrary,
 //CellPictureStyling
