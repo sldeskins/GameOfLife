@@ -46,14 +46,17 @@
 
             </span>
             <div>
-                <asp:Button ID="ButtonGetNextGeneration" runat="server" Text="Start / Next Generation" OnClick="GetNextGeneration" />
+                <span>
+                    <asp:Button ID="ButtonGetNextGeneration" runat="server" Text="Start / Next Generation" OnClick="GetNextGeneration" />
+                </span>
+                <span id="PanelReplayGameArea">
+                    <asp:Button ID="ButtonReplayGame" runat="server" Text="Click Reset Inital State of Last Game" OnClick="ReplayGame"  Enabled="false"/>
+                </span>
                 <asp:Panel ID="PanelSaveGameArea" runat="server" Visible="false">
                     <asp:Button ID="ButtonSaveGame" runat="server" Text="Click Here to Save Game" OnClick="SaveGame" />
                     <asp:TextBox ID="TextBoxSavedDescription" runat="server">&lt; put saved game description here&gt;</asp:TextBox>
                 </asp:Panel>
-                <asp:Panel ID="PanelReplayGameArea" runat="server" Visible="false">
-                    <asp:Button ID="ButtonReplayGame" runat="server" Text="Click Here to Replay Game" OnClick="ReplayGame" />
-                </asp:Panel>
+
             </div>
 
         </fieldset>

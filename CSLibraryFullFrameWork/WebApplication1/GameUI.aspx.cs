@@ -63,10 +63,10 @@ namespace WebApplication1
 
         }
 
-        #region pagemethods
+        #region page methods
         protected void UpdateGameGridRowsColumns ( object sender, EventArgs e )
         {
-            if (_trySetRowsColumnsForNewGame())
+            if (_trySetRowsColumnsFromForm())
             {
                 ButtonMakeGameGrid.Enabled = true;
             }
@@ -76,17 +76,6 @@ namespace WebApplication1
             }
 
         }
-        protected void SaveGame ( object sender, EventArgs e )
-        {
-            _saveGame();
-        }
-        protected void ReplayGame ( object sender, EventArgs e )
-        {
-            _replayGame();
-        }
-        protected void _replayGame ()
-        {
-        }
         protected void ResetGameAndLayoutGrid ( object sender, EventArgs e )
         {
             _makeNewGameAndLayoutGrid();
@@ -94,46 +83,13 @@ namespace WebApplication1
             panel.Visible = false;
 
         }
-        private void _makeNewGameAndLayoutGrid ()
+        protected void ReplayGame ( object sender, EventArgs e )
         {
-            AliveCellPositions = null;
-            if (_trySetRowsColumnsForNewGame())
-            {
-                Game game = new Game();
-                game.StartNewGame(int.Parse(TextBoxRows.Text), int.Parse(TextBoxColumns.Text));
-                Game = game;
-                _layoutEmptyGameGrid();
-                CheckBoxTimeOnOff.Checked = false;
-
-                SavedGame = new SavedGame();
-                SavedGame.Rows =Game.GameBoard.Rows;
-                SavedGame.Columns = Game.GameBoard.Columns;
-               
-            }
+            _replayGame();
         }
-     
-        private void _layoutEmptyGameGrid ()
+        protected void SaveGame ( object sender, EventArgs e )
         {
-            if (_trySetRowsColumnsForNewGame())
-            {
-                GridAreaPanel.Controls.Clear();
-                _putButtonsOnGrid();
-                _putMessage(string.Format("Click to make cells alive or dead."));
-            }
-        }
-        private void _setAliveOnLayoutGameGrid ( List<GameGridPosition> alivePositions )
-        {
-            if (alivePositions != null)
-            {
-                if (alivePositions.Count > 0)
-                {
-                    foreach (var aliveCellPosition in alivePositions)
-                    {
-                        var control = this.FindControl(string.Format("{0}_{1}", aliveCellPosition.Row, aliveCellPosition.Column));
-                        _setButtonControlAliveDeadStyling((Button)control);
-                    }
-                }
-            }
+            _saveGame();
         }
         protected void GetNextGeneration ( object sender, EventArgs e )
         {
@@ -177,6 +133,82 @@ namespace WebApplication1
             timer.Enabled = false;
         }
         #endregion
+        #region grid display methods
+
+        #endregion
+        protected void _replayGame ()
+        {
+            _makeNewGameAndLayoutGrid(false);
+            foreach (var pos in Game.AlivePositions)
+            {
+                Button button = (Button)FindControl(string.Format("{0}_{1}", pos.Row, pos.Column));
+                _setButtonAliveStyle(button);
+            }
+        }
+        private void _makeNewGameAndLayoutGrid ( bool formData = true )
+        {
+            AliveCellPositions = null;
+            int r = 0;
+            int c = 0;
+            bool haveValidRowsColumnsData = false;
+            if (formData)
+            {
+                if (_trySetRowsColumnsFromForm())
+                {
+                    r = int.Parse(TextBoxRows.Text);
+                    c = int.Parse(TextBoxColumns.Text);
+                    haveValidRowsColumnsData = true;
+                }
+            }
+            else
+            {
+                r = SavedGame.Rows;
+                c = SavedGame.Columns;
+                AliveCellPositions = SavedGame.InitialAlivePositions;
+                haveValidRowsColumnsData = true;
+            }
+
+            if (haveValidRowsColumnsData)
+            {
+                Game game = new Game();
+                game.StartNewGame(r, c, AliveCellPositions); 
+                Game = game;
+                _layoutEmptyGameGrid();
+                CheckBoxTimeOnOff.Checked = false;
+
+                if (Game.GameFeatures.Contains(GameFeaturesEnum.ReplayGame) || Game.GameFeatures.Contains(GameFeaturesEnum.SaveGames))
+                {
+                    SavedGame = new SavedGame();
+                    SavedGame.Rows = Game.GameBoard.Rows;
+                    SavedGame.Columns = Game.GameBoard.Columns;
+                    SavedGame.InitialAlivePositions = AliveCellPositions;
+                }
+
+            }
+        }
+        private void _layoutEmptyGameGrid ()
+        {
+            if (_trySetRowsColumnsFromForm())
+            {
+                GridAreaPanel.Controls.Clear();
+                _putButtonsOnGrid();
+                _putMessage(string.Format("Click to make cells alive or dead."));
+            }
+        }
+        private void _setAliveOnLayoutGameGrid ( List<GameGridPosition> alivePositions )
+        {
+            if (alivePositions != null)
+            {
+                if (alivePositions.Count > 0)
+                {
+                    foreach (var aliveCellPosition in alivePositions)
+                    {
+                        var control = this.FindControl(string.Format("{0}_{1}", aliveCellPosition.Row, aliveCellPosition.Column));
+                        _setButtonControlAliveDeadStyling((Button)control);
+                    }
+                }
+            }
+        }
 
         protected void _getNextGeneration ()
         {
@@ -191,8 +223,16 @@ namespace WebApplication1
                 SavedGame.EndGeneration = (int)Game.SteadyStateGeneration;
                 SavedGame.EndState = Game.GameState;
 
-                Panel panel = (Panel)FindControl("PanelSaveGameArea");
-                panel.Visible = true;
+                if (Game.GameFeatures.Contains(GameFeaturesEnum.ReplayGame) && SavedGame!=null)
+                {
+                    Button panel = (Button)FindControl("ButtonReplayGame");
+                    panel.Enabled = true;
+                }
+                if (Game.GameFeatures.Contains(GameFeaturesEnum.SaveGames))
+                {
+                    Panel panel = (Panel)FindControl("PanelSaveGameArea");
+                    panel.Visible = true;
+                }
             }
             else
             {
@@ -206,7 +246,7 @@ namespace WebApplication1
             SavedGame = null;
             Panel panel = (Panel)FindControl("PanelSaveGameArea");
             panel.Visible = false;
-         
+
             _putMessage(string.Format("There are now {0} saved games.", Game.SavedGames.Count));
 
         }
@@ -217,7 +257,7 @@ namespace WebApplication1
             messageArea.Controls.Add(new LiteralControl(message));
 
         }
-        protected bool _trySetRowsColumnsForNewGame ()
+        protected bool _trySetRowsColumnsFromForm ()
         {
             int rows;
             bool rowsOk = int.TryParse(TextBoxRows.Text, out rows);
@@ -273,14 +313,18 @@ namespace WebApplication1
 
             if (_grid.getCell(r, c).IsAlive)
             {
-                control.Text = "O";
-                control.BackColor = System.Drawing.Color.Green;
+                _setButtonAliveStyle(control);
             }
             else
             {
                 control.Text = "X";
                 control.BackColor = (new Button()).BackColor;
             }
+        }
+        private void _setButtonAliveStyle ( Button control )
+        {
+            control.Text = "O";
+            control.BackColor = System.Drawing.Color.Green;
         }
         void _btn_Click ( object sender, EventArgs e )
         {
@@ -298,7 +342,7 @@ namespace WebApplication1
             }
             _setButtonControlAliveDeadStyling((Button)control);
             AliveCellPositions = _grid.getAliveCellPositions();
-            SavedGame.InitalAlivePositions = AliveCellPositions;
+            SavedGame.InitialAlivePositions = AliveCellPositions;
 
         }
 

@@ -22,7 +22,7 @@ namespace CS_GOL_LibraryFull
         }
         
         private List<GameGridPosition> _initalAlivePosistions;
-        public List<GameGridPosition> InitalAlivePositions
+        public List<GameGridPosition> InitialAlivePositions
         {
             get
             {
