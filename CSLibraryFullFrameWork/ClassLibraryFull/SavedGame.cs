@@ -8,9 +8,9 @@ namespace CS_GOL_LibraryFull
     [Serializable]
     public class SavedGame
     {
-        private List<GridPosition> _initalAlivePosistions;
+        private List<GameGridPosition> _initalAlivePosistions;
 
-        public List<GridPosition> InitalAlivePositions
+        public List<GameGridPosition> InitalAlivePositions
         {
             get
             {

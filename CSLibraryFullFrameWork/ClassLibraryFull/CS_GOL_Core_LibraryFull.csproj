@@ -7,8 +7,8 @@
     <ProjectGuid>{DFE570B8-451C-459B-8D4E-C9FC225A4047}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClassLibraryFull</RootNamespace>
-    <AssemblyName>ClassLibraryFull</AssemblyName>
+    <RootNamespace>CS_GOL_LibraryFull</RootNamespace>
+    <AssemblyName>CS_GOL_LibraryFull</AssemblyName>
     <TargetFrameworkVersion>v4.0.3</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,11 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cell.cs" />
+    <Compile Include="GameCell.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="GameFeaturesEnum.cs" />
     <Compile Include="GameStateEnum.cs" />
     <Compile Include="GameGrid.cs" />
-    <Compile Include="GridPosition.cs" />
+    <Compile Include="GameGridPosition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SavedGame.cs" />
   </ItemGroup>

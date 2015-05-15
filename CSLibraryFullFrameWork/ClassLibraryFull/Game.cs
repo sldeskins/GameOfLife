@@ -8,6 +8,19 @@ namespace CS_GOL_LibraryFull
     [Serializable]
     public class Game
     {
+        protected internal List<GameFeaturesEnum> _allowedFeatures = new List<GameFeaturesEnum>() { GameFeaturesEnum.Basic };
+        public List<GameFeaturesEnum> GameFeatures
+        {
+            get
+            {
+                return _allowedFeatures;
+            }
+            protected internal set
+            {
+                _allowedFeatures = value;
+            }
+        }
+
         private GameGrid _grid = new GameGrid(0, 0);
         public GameGrid GameBoard
         {
@@ -15,13 +28,12 @@ namespace CS_GOL_LibraryFull
             {
                 return _grid;
             }
-
         }
 
-        private List<GridPosition> _gridTMinus1 = null;
-        private List<GridPosition> _gridTMinus2 = null;
-        private List<GridPosition> _gridTMinus0 = null;
-        public List<GridPosition> AlivePositions
+        private List<GameGridPosition> _gridTMinus1 = null;
+        private List<GameGridPosition> _gridTMinus2 = null;
+        private List<GameGridPosition> _gridTMinus0 = null;
+        public List<GameGridPosition> AlivePositions
         {
             get
             {
@@ -60,8 +72,8 @@ namespace CS_GOL_LibraryFull
                 _steadyStateGeneration = value;
             }
         }
-        private GameStateEnum _gameState;
 
+        private GameStateEnum _gameState;
         public GameStateEnum GameState
         {
             get
@@ -74,7 +86,7 @@ namespace CS_GOL_LibraryFull
             }
         }
 
-        public void StartNewGame ( int rows, int columns, List<GridPosition> initialLiveCells )
+        public void StartNewGame ( int rows, int columns, List<GameGridPosition> initialLiveCells )
         {
             _grid = new GameGrid(rows, columns);
             _grid.setAliveCells(initialLiveCells);
@@ -128,7 +140,7 @@ namespace CS_GOL_LibraryFull
                 SteadyStateGeneration = CurrentGeneration;
             }
         }
-        private bool allPointsMatch ( List<GridPosition> gridPositions1, List<GridPosition> gridPositions2 )
+        private bool allPointsMatch ( List<GameGridPosition> gridPositions1, List<GameGridPosition> gridPositions2 )
         {
             if (gridPositions1 == null && gridPositions2 != null)
                 return false;
@@ -144,8 +156,8 @@ namespace CS_GOL_LibraryFull
             return true;
         }
 
-        private List<SavedGame> _saveGames= new List<SavedGame>();
-
+        #region SavedGame components
+        private List<SavedGame> _saveGames = new List<SavedGame>();
         public List<SavedGame> SavedGames
         {
             get
@@ -157,6 +169,7 @@ namespace CS_GOL_LibraryFull
                 _saveGames = value;
             }
         }
+        #endregion SavedGame components
 
     }
 }

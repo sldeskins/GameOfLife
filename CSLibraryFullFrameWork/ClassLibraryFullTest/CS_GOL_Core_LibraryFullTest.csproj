@@ -6,8 +6,8 @@
     <ProjectGuid>{4A7AF71A-F350-40BD-B7D9-F52CEF018709}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClassLibraryFullTest</RootNamespace>
-    <AssemblyName>ClassLibraryFullTest</AssemblyName>
+    <RootNamespace>CS_GOL_Core_LibraryFullTest</RootNamespace>
+    <AssemblyName>CS_GOL_Core_LibraryFullTest</AssemblyName>
     <TargetFrameworkVersion>v4.0.3</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

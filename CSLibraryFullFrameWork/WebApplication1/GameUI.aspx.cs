@@ -24,11 +24,11 @@ namespace WebApplication1
                 ViewState["Game"] = value;
             }
         }
-        protected List<GridPosition> AliveCellPositions
+        protected List<GameGridPosition> AliveCellPositions
         {
             get
             {
-                return (List<GridPosition>)ViewState["AliveCellPositions"];
+                return (List<GameGridPosition>)ViewState["AliveCellPositions"];
             }
             set
             {
@@ -114,7 +114,7 @@ namespace WebApplication1
                 _putMessage(string.Format("Click to make cells alive or dead."));
             }
         }
-        private void _setAliveOnLayoutGameGrid ( List<GridPosition> alivePositions )
+        private void _setAliveOnLayoutGameGrid ( List<GameGridPosition> alivePositions )
         {
             if (alivePositions != null)
             {

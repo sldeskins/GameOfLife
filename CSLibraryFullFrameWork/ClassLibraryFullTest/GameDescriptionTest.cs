@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CS_GOL_LibraryFull;
-using System.Collections.Generic;
+using System.Collections.Generic; 
 
 namespace ClassLibraryFullTest
 {
@@ -52,14 +52,14 @@ Example output:
         [TestMethod]
         public void CellIsEitherAliveOrDead_Alive ()
         {
-            Cell cell = new Cell(true);
+            GameCell cell = new GameCell(true);
             Assert.AreEqual(true, cell.IsAlive);
             Assert.AreEqual(false, cell.IsDead);
         }
         [TestMethod]
         public void CellIsEitherAliveOrDead_Dead ()
         {
-            Cell cell = new Cell(false);
+            GameCell cell = new GameCell(false);
             Assert.AreEqual(false, cell.IsAlive);
             Assert.AreEqual(true, cell.IsDead);
         }
@@ -67,7 +67,7 @@ Example output:
         [TestMethod]
         public void CellIsEitherAliveOrDead ()
         {
-            Cell cell = new Cell();
+            GameCell cell = new GameCell();
             Assert.AreEqual(false, cell.IsAlive);
             Assert.AreEqual(true, cell.IsDead);
         }
@@ -76,9 +76,9 @@ Example output:
         public void _getGridCells ()
         {
             GameGrid grid = new GameGrid(7, 8);
-            Cell[,] gridCells = grid.getCells();
+            GameCell[,] gridCells = grid.getCells();
             Assert.AreEqual(56, gridCells.Length);
-            Assert.IsInstanceOfType(gridCells[1, 1], typeof(Cell));
+            Assert.IsInstanceOfType(gridCells[1, 1], typeof(GameCell));
             Assert.AreEqual(false, gridCells[1, 1].IsAlive);
             Assert.AreEqual(true, gridCells[1, 1].IsDead);
         }
@@ -106,7 +106,7 @@ Example output:
             //set alive
             grid.setAliveCell(row, column);
 
-            Cell[,] gridCells = grid.getCells();
+            GameCell[,] gridCells = grid.getCells();
             Assert.AreEqual(true, gridCells[row, column].IsAlive);
             Assert.AreEqual(false, gridCells[row + 1, column + 1].IsAlive);
             Assert.AreEqual(false, gridCells[row - 1, column - 1].IsAlive);
@@ -140,7 +140,7 @@ Example output:
             Assert.AreEqual(false, cells[row2, col2].IsAlive);
 
             //
-            List<GridPosition> cellsAreAlive = new List<GridPosition>() { new GridPosition(row1, col1), new GridPosition(row2, col2) };
+            List<GameGridPosition> cellsAreAlive = new List<GameGridPosition>() { new GameGridPosition(row1, col1), new GameGridPosition(row2, col2) };
             grid.setAliveCells(cellsAreAlive);
 
             //after
@@ -158,7 +158,7 @@ Example output:
             grid.setAliveCells(null);
             var results = grid.getAliveCellPositions();
             Assert.AreEqual(0, results.Count);
-            Assert.IsInstanceOfType(results, typeof(List<GridPosition>));
+            Assert.IsInstanceOfType(results, typeof(List<GameGridPosition>));
         }
         [TestMethod]
         public void _setGridCell_GetAliveCells_none ()
@@ -166,7 +166,7 @@ Example output:
             int rows = 7;
             int columns = 8;
             GameGrid grid = new GameGrid(rows, columns);
-            List<GridPosition> cellsAreAlive = grid.getAliveCellPositions();
+            List<GameGridPosition> cellsAreAlive = grid.getAliveCellPositions();
             Assert.AreEqual(0, cellsAreAlive.Count);
 
         }
@@ -193,10 +193,10 @@ Example output:
             Assert.AreEqual(false, cells[row2, col2].IsAlive);
             Assert.AreEqual(false, cells[row3, col3].IsAlive);
             //
-            List<GridPosition> cellsAreAlive = new List<GridPosition>() { 
-                new GridPosition(row1, col1), 
-                new GridPosition(row2, col2), 
-                new GridPosition(row3, col3) };
+            List<GameGridPosition> cellsAreAlive = new List<GameGridPosition>() { 
+                new GameGridPosition(row1, col1), 
+                new GameGridPosition(row2, col2), 
+                new GameGridPosition(row3, col3) };
 
             grid.setAliveCells(cellsAreAlive);
 
@@ -226,10 +226,10 @@ Example output:
             int row3 = 1;
             int col3 = 1;
 
-            grid.setAliveCells(new List<GridPosition>() { 
-                new GridPosition(row1, col1), 
-                new GridPosition(row2, col2), 
-                new GridPosition(row3, col3) });
+            grid.setAliveCells(new List<GameGridPosition>() { 
+                new GameGridPosition(row1, col1), 
+                new GameGridPosition(row2, col2), 
+                new GameGridPosition(row3, col3) });
 
             //
             for (int r = 0; r < rows; r++)
@@ -257,10 +257,10 @@ Example output:
             int columns = 3;
             GameGrid grid = new GameGrid(rows, columns);
             //
-            int count = grid.getCountLiveNeigborsForPosition(new GridPosition(-1, -1));
+            int count = grid.getCountLiveNeigborsForPosition(new GameGridPosition(-1, -1));
             Assert.AreEqual(0, count);
             //
-            count = grid.getCountLiveNeigborsForPosition(new GridPosition(-8, 8));
+            count = grid.getCountLiveNeigborsForPosition(new GameGridPosition(-8, 8));
             Assert.AreEqual(0, count);
         }
         [TestMethod]
@@ -272,7 +272,7 @@ Example output:
             int rows = 3;
             int columns = 3;
             GameGrid grid = new GameGrid(rows, columns);
-            int count = grid.getCountLiveNeigborsForPosition(new GridPosition(0, 0));
+            int count = grid.getCountLiveNeigborsForPosition(new GameGridPosition(0, 0));
             Assert.AreEqual(0, count);
         }
         [TestMethod]
@@ -286,7 +286,7 @@ Example output:
             GameGrid grid = new GameGrid(rows, columns);
             grid.setAliveCell(0, 1);
 
-            int count = grid.getCountLiveNeigborsForPosition(new GridPosition(0, 0));
+            int count = grid.getCountLiveNeigborsForPosition(new GameGridPosition(0, 0));
             Assert.AreEqual(1, count);
         }
         [TestMethod]
@@ -300,7 +300,7 @@ Example output:
             GameGrid grid = new GameGrid(rows, columns);
             grid.setAliveCell(0, 1);
             grid.setAliveCell(0, 0);
-            int count = grid.getCountLiveNeigborsForPosition(new GridPosition(0, 0));
+            int count = grid.getCountLiveNeigborsForPosition(new GameGridPosition(0, 0));
             Assert.AreEqual(1, count);
         }
         [TestMethod]
@@ -316,7 +316,7 @@ Example output:
             grid.setAliveCell(1, 1);
             grid.setAliveCell(1, 2);
             grid.setAliveCell(1, 1);
-            int count = grid.getCountLiveNeigborsForPosition(new GridPosition(2, 2));
+            int count = grid.getCountLiveNeigborsForPosition(new GameGridPosition(2, 2));
             Assert.AreEqual(2, count);
         }
 
@@ -338,7 +338,7 @@ Example output:
             grid.setAliveCell(2, 0);
             grid.setAliveCell(2, 1);
             grid.setAliveCell(2, 2);
-            int count = grid.getCountLiveNeigborsForPosition(new GridPosition(2, 2));
+            int count = grid.getCountLiveNeigborsForPosition(new GameGridPosition(2, 2));
             Assert.AreEqual(3, count);
         }
         [TestMethod]
@@ -359,7 +359,7 @@ Example output:
             grid.setAliveCell(2, 0);
             grid.setAliveCell(2, 1);
             grid.setAliveCell(2, 2);
-            int count = grid.getCountLiveNeigborsForPosition(new GridPosition(1, 1));
+            int count = grid.getCountLiveNeigborsForPosition(new GameGridPosition(1, 1));
             Assert.AreEqual(8, count);
         }
         [TestMethod]
@@ -380,7 +380,7 @@ Example output:
             grid.setAliveCell(2, 0);
             //grid.setAliveCell(2, 1);
             grid.setAliveCell(2, 2);
-            int count = grid.getCountLiveNeigborsForPosition(new GridPosition(1, 1));
+            int count = grid.getCountLiveNeigborsForPosition(new GameGridPosition(1, 1));
             Assert.AreEqual(5, count);
         }
 
@@ -451,10 +451,10 @@ Cell next gen rules
             var nextGetAlivePositions = nextGenerationGrid.getAliveCellPositions();
             Assert.AreEqual(4, nextGetAlivePositions.Count);
 
-            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(0, 0)));
-            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(0, 1)));
-            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(1, 0)));
-            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(1, 1)));
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GameGridPosition(0, 0)));
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GameGridPosition(0, 1)));
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GameGridPosition(1, 0)));
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GameGridPosition(1, 1)));
 
         }
         [TestMethod]
@@ -484,15 +484,15 @@ Cell next gen rules
             grid.setAliveCell(2, 1);
             grid.setAliveCell(2, 2);
             //
-            Assert.AreEqual(1, grid.getCountLiveNeigborsForPosition(new GridPosition(0, 0)));
-            Assert.AreEqual(3, grid.getCountLiveNeigborsForPosition(new GridPosition(0, 1)));
-            Assert.AreEqual(1, grid.getCountLiveNeigborsForPosition(new GridPosition(0, 2)));
-            Assert.AreEqual(3, grid.getCountLiveNeigborsForPosition(new GridPosition(1, 0)));
-            Assert.AreEqual(4, grid.getCountLiveNeigborsForPosition(new GridPosition(1, 1)));
-            Assert.AreEqual(4, grid.getCountLiveNeigborsForPosition(new GridPosition(1, 2)));
-            Assert.AreEqual(2, grid.getCountLiveNeigborsForPosition(new GridPosition(2, 0)));
-            Assert.AreEqual(2, grid.getCountLiveNeigborsForPosition(new GridPosition(2, 1)));
-            Assert.AreEqual(2, grid.getCountLiveNeigborsForPosition(new GridPosition(2, 2)));
+            Assert.AreEqual(1, grid.getCountLiveNeigborsForPosition(new GameGridPosition(0, 0)));
+            Assert.AreEqual(3, grid.getCountLiveNeigborsForPosition(new GameGridPosition(0, 1)));
+            Assert.AreEqual(1, grid.getCountLiveNeigborsForPosition(new GameGridPosition(0, 2)));
+            Assert.AreEqual(3, grid.getCountLiveNeigborsForPosition(new GameGridPosition(1, 0)));
+            Assert.AreEqual(4, grid.getCountLiveNeigborsForPosition(new GameGridPosition(1, 1)));
+            Assert.AreEqual(4, grid.getCountLiveNeigborsForPosition(new GameGridPosition(1, 2)));
+            Assert.AreEqual(2, grid.getCountLiveNeigborsForPosition(new GameGridPosition(2, 0)));
+            Assert.AreEqual(2, grid.getCountLiveNeigborsForPosition(new GameGridPosition(2, 1)));
+            Assert.AreEqual(2, grid.getCountLiveNeigborsForPosition(new GameGridPosition(2, 2)));
             //
             GameGrid nextGenerationGrid = grid.getNextGeneration();
             Assert.AreEqual(grid.Rows, nextGenerationGrid.Rows);
@@ -501,17 +501,17 @@ Cell next gen rules
             var nextGetAlivePositions = nextGenerationGrid.getAliveCellPositions();
             Assert.AreEqual(4, nextGetAlivePositions.Count);
 
-            Assert.IsFalse(nextGetAlivePositions.Contains(new GridPosition(0, 0)));
-            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(0, 1)));
-            Assert.IsFalse(nextGetAlivePositions.Contains(new GridPosition(0, 2)));
+            Assert.IsFalse(nextGetAlivePositions.Contains(new GameGridPosition(0, 0)));
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GameGridPosition(0, 1)));
+            Assert.IsFalse(nextGetAlivePositions.Contains(new GameGridPosition(0, 2)));
 
-            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(1, 0)));
-            Assert.IsFalse(nextGetAlivePositions.Contains(new GridPosition(1, 1)));
-            Assert.IsFalse(nextGetAlivePositions.Contains(new GridPosition(1, 2)));
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GameGridPosition(1, 0)));
+            Assert.IsFalse(nextGetAlivePositions.Contains(new GameGridPosition(1, 1)));
+            Assert.IsFalse(nextGetAlivePositions.Contains(new GameGridPosition(1, 2)));
 
-            Assert.IsFalse(nextGetAlivePositions.Contains(new GridPosition(2, 0)));
-            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(2, 1)));
-            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(2, 2)));
+            Assert.IsFalse(nextGetAlivePositions.Contains(new GameGridPosition(2, 0)));
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GameGridPosition(2, 1)));
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GameGridPosition(2, 2)));
 
         }
 
@@ -553,10 +553,10 @@ Cell next gen rules
             var nextGetAlivePositions = nextGenerationGrid.getAliveCellPositions();
             Assert.AreEqual(4, nextGetAlivePositions.Count);
 
-            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(1, 4)));
-            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(2, 3)));
-            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(2, 4)));
-            Assert.IsTrue(nextGetAlivePositions.Contains(new GridPosition(1, 3)));
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GameGridPosition(1, 4)));
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GameGridPosition(2, 3)));
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GameGridPosition(2, 4)));
+            Assert.IsTrue(nextGetAlivePositions.Contains(new GameGridPosition(1, 3)));
         }
         [TestMethod]
         public void _setGridCell_AliveTwiceDoesNotChangeTheNumberOfLiveCells ()
@@ -569,7 +569,7 @@ Cell next gen rules
             int column = 3;
             //
             grid.setAliveCell(row, column);
-            List<GridPosition> results = grid.getAliveCellPositions();
+            List<GameGridPosition> results = grid.getAliveCellPositions();
             Assert.AreEqual(1, results.Count);
             //
             grid.setAliveCell(row, column);

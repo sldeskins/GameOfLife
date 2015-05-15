@@ -11,22 +11,22 @@ namespace CS_GOL_LibraryFull
         private int _rows;
         private int _columns;
 
-        private Cell[,] _cells;
+        private GameCell[,] _cells;
 
-        private List<GridPosition> _aliveCellPositions = new List<GridPosition>();
-        private List<GridPosition> _deadCellsWithLiveNeighborPositions = new List<GridPosition>();
+        private List<GameGridPosition> _aliveCellPositions = new List<GameGridPosition>();
+        private List<GameGridPosition> _deadCellsWithLiveNeighborPositions = new List<GameGridPosition>();
 
 
         public GameGrid ( int rows, int columns )
         {
             _rows = rows;
             _columns = columns;
-            _cells = new Cell[rows, columns];
+            _cells = new GameCell[rows, columns];
             for (int r = 0; r < _rows; r++)
             {
                 for (int c = 0; c < _columns; c++)
                 {
-                    _cells[r, c] = new Cell(false);
+                    _cells[r, c] = new GameCell(false);
                 }
             }
         }
@@ -46,32 +46,32 @@ namespace CS_GOL_LibraryFull
 
             }
         }
-        public Cell getCell ( int row, int column )
+        public GameCell getCell ( int row, int column )
         {
             return _cells[row, column];
         }
-        public Cell[,] getCells ()
+        public GameCell[,] getCells ()
         {
             return _cells;
         }
         public void setAliveCell ( int row, int column )
         {
             _cells[row, column].IsAlive = true;
-            if (!_aliveCellPositions.Contains(new GridPosition(row, column)))
+            if (!_aliveCellPositions.Contains(new GameGridPosition(row, column)))
             {
-                _aliveCellPositions.Add(new GridPosition(row, column));
+                _aliveCellPositions.Add(new GameGridPosition(row, column));
             }
         }
         public void setDead ( int row, int column )
         {
             _cells[row, column].IsDead = true;
-            if (_aliveCellPositions.Contains(new GridPosition(row, column)))
+            if (_aliveCellPositions.Contains(new GameGridPosition(row, column)))
             {
-                _aliveCellPositions.Remove(new GridPosition(row, column));
+                _aliveCellPositions.Remove(new GameGridPosition(row, column));
             }
         }
 
-        public void setAliveCells ( List<GridPosition> aliveCellPositions )
+        public void setAliveCells ( List<GameGridPosition> aliveCellPositions )
         {
             if (aliveCellPositions != null)
             {
@@ -86,38 +86,38 @@ namespace CS_GOL_LibraryFull
             }
         }
 
-        public List<GridPosition> getAliveCellPositions ()
+        public List<GameGridPosition> getAliveCellPositions ()
         {
             return _aliveCellPositions;
         }
 
-        public int getCountLiveNeigborsForPosition ( GridPosition gridPosition )
+        public int getCountLiveNeigborsForPosition ( GameGridPosition gridPosition )
         {
             int count = 0;
             //above left neighbor
-            count += positionOnGridAndAlive(new GridPosition(gridPosition.Row - 1, gridPosition.Column - 1));
+            count += positionOnGridAndAlive(new GameGridPosition(gridPosition.Row - 1, gridPosition.Column - 1));
             //above same neighbor
-            count += positionOnGridAndAlive(new GridPosition(gridPosition.Row, gridPosition.Column - 1));
+            count += positionOnGridAndAlive(new GameGridPosition(gridPosition.Row, gridPosition.Column - 1));
             //above right neighbor
-            count += positionOnGridAndAlive(new GridPosition(gridPosition.Row + 1, gridPosition.Column - 1));
+            count += positionOnGridAndAlive(new GameGridPosition(gridPosition.Row + 1, gridPosition.Column - 1));
 
             // left neighbor
-            count += positionOnGridAndAlive(new GridPosition(gridPosition.Row - 1, gridPosition.Column));
+            count += positionOnGridAndAlive(new GameGridPosition(gridPosition.Row - 1, gridPosition.Column));
             // selfdon't count
             //count += positionOnGridAndAlive(new GridPosition(gridPosition.Row , gridPosition.Column  ));
             // right neighbor 
-            count += positionOnGridAndAlive(new GridPosition(gridPosition.Row + 1, gridPosition.Column));
+            count += positionOnGridAndAlive(new GameGridPosition(gridPosition.Row + 1, gridPosition.Column));
 
             //below left neighbor
-            count += positionOnGridAndAlive(new GridPosition(gridPosition.Row - 1, gridPosition.Column + 1));
+            count += positionOnGridAndAlive(new GameGridPosition(gridPosition.Row - 1, gridPosition.Column + 1));
             //below same neighbor
-            count += positionOnGridAndAlive(new GridPosition(gridPosition.Row, gridPosition.Column + 1));
+            count += positionOnGridAndAlive(new GameGridPosition(gridPosition.Row, gridPosition.Column + 1));
             //below right neighbor
-            count += positionOnGridAndAlive(new GridPosition(gridPosition.Row + 1, gridPosition.Column + 1));
+            count += positionOnGridAndAlive(new GameGridPosition(gridPosition.Row + 1, gridPosition.Column + 1));
 
             return count;
         }
-        private int positionOnGridAndAlive ( GridPosition gridPosition )
+        private int positionOnGridAndAlive ( GameGridPosition gridPosition )
         {
             int result = 0;
             if (0 <= gridPosition.Row && gridPosition.Row < _rows &&
@@ -130,7 +130,7 @@ namespace CS_GOL_LibraryFull
             }
             return result;
         }
-        private bool positionOnGridAndDeadCheck ( GridPosition gridPosition )
+        private bool positionOnGridAndDeadCheck ( GameGridPosition gridPosition )
         {
             bool result = false;
             if (0 <= gridPosition.Row && gridPosition.Row < _rows &&
@@ -143,7 +143,7 @@ namespace CS_GOL_LibraryFull
         public GameGrid getNextGeneration ()
         {
             GameGrid nextGenGrid = new GameGrid(_rows, _columns);
-            List<GridPosition> nextGenAlivePositions = new List<GridPosition>();
+            List<GameGridPosition> nextGenAlivePositions = new List<GameGridPosition>();
 
             checkDeadNeighborsOfLiveCells();
             var checkPositions = _deadCellsWithLiveNeighborPositions.Union(_aliveCellPositions).ToList();
@@ -167,41 +167,41 @@ namespace CS_GOL_LibraryFull
         {
             foreach (var _aliveCellPosition in _aliveCellPositions)
             {
-                GridPosition neighborPosition;
+                GameGridPosition neighborPosition;
 
                 //above left neighbor
-                neighborPosition = new GridPosition(_aliveCellPosition.Row - 1, _aliveCellPosition.Column - 1);
+                neighborPosition = new GameGridPosition(_aliveCellPosition.Row - 1, _aliveCellPosition.Column - 1);
                 checkIfDeadAndAdd(neighborPosition);
                 //above same neighbor 
-                neighborPosition = new GridPosition(_aliveCellPosition.Row, _aliveCellPosition.Column - 1);
+                neighborPosition = new GameGridPosition(_aliveCellPosition.Row, _aliveCellPosition.Column - 1);
                 checkIfDeadAndAdd(neighborPosition);
                 //above right neighbor 
-                neighborPosition = new GridPosition(_aliveCellPosition.Row + 1, _aliveCellPosition.Column - 1);
+                neighborPosition = new GameGridPosition(_aliveCellPosition.Row + 1, _aliveCellPosition.Column - 1);
                 checkIfDeadAndAdd(neighborPosition);
 
                 // left neighbor 
-                neighborPosition = new GridPosition(_aliveCellPosition.Row - 1, _aliveCellPosition.Column);
+                neighborPosition = new GameGridPosition(_aliveCellPosition.Row - 1, _aliveCellPosition.Column);
                 checkIfDeadAndAdd(neighborPosition);
                 // selfdon't count
                 //count += positionOnGridAndAlive(new GridPosition(_aliveCellPosition.Row , _aliveCellPosition.Column  ));
                 // right neighbor  
-                neighborPosition = new GridPosition(_aliveCellPosition.Row + 1, _aliveCellPosition.Column);
+                neighborPosition = new GameGridPosition(_aliveCellPosition.Row + 1, _aliveCellPosition.Column);
                 checkIfDeadAndAdd(neighborPosition);
 
                 //below left neighbor 
-                neighborPosition = new GridPosition(_aliveCellPosition.Row - 1, _aliveCellPosition.Column + 1);
+                neighborPosition = new GameGridPosition(_aliveCellPosition.Row - 1, _aliveCellPosition.Column + 1);
                 checkIfDeadAndAdd(neighborPosition);
                 //below same neighbor 
-                neighborPosition = new GridPosition(_aliveCellPosition.Row, _aliveCellPosition.Column + 1);
+                neighborPosition = new GameGridPosition(_aliveCellPosition.Row, _aliveCellPosition.Column + 1);
                 checkIfDeadAndAdd(neighborPosition);
                 //below right neighbor 
-                neighborPosition = new GridPosition(_aliveCellPosition.Row + 1, _aliveCellPosition.Column + 1);
+                neighborPosition = new GameGridPosition(_aliveCellPosition.Row + 1, _aliveCellPosition.Column + 1);
                 checkIfDeadAndAdd(neighborPosition);
 
             }
         }
 
-        private void checkIfDeadAndAdd ( GridPosition checkPosition )
+        private void checkIfDeadAndAdd ( GameGridPosition checkPosition )
         {
             if (positionOnGridAndDeadCheck(checkPosition) && !_deadCellsWithLiveNeighborPositions.Contains(checkPosition))
             {

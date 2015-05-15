@@ -6,10 +6,10 @@ using System.Text;
 namespace CS_GOL_LibraryFull
 {
     [Serializable]
-    public class Cell
+    public class GameCell
     {
         private bool _isAlive;
-        public Cell ( bool isAlive = false )
+        public GameCell ( bool isAlive = false )
         {
             _isAlive = isAlive;
         }
