@@ -34,37 +34,65 @@
                 <asp:Button ID="ButtonMakeGameGrid" runat="server" OnClick="ResetGameAndLayoutGrid" Text="Make New Game" />
             </div>
         </fieldset>
-        <fieldset>
-            <legend>Game Play Controls</legend>
-            <span>
-                <asp:Timer ID="Timer1" OnTick="Timer1_Tick" runat="server" Interval="2000" Enabled="false" />
-                <asp:Label ID="LabelTimer" runat="server" Text="# of seconds:"></asp:Label>
-                <asp:TextBox ID="TextBoxTimer" runat="server" OnTextChanged="UpdateTimerInterval">2</asp:TextBox>
-                <asp:CheckBox ID="CheckBoxTimeOnOff" runat="server" Text="Turn Timer On/Off (Auto Timer starts after next generation click)" OnCheckedChanged="TurnTimerOnOff" Checked="false" />
+        <div>
+            <table title="hail">
+                <tr>
+                    <td>
+                        <fieldset>
+                            <legend>Game Play Controls</legend>
+                            <span>
+                                <asp:Timer ID="Timer1" OnTick="Timer1_Tick" runat="server" Interval="2000" Enabled="false" />
+                                <asp:Label ID="LabelTimer" runat="server" Text="# of seconds:"></asp:Label>
+                                <asp:TextBox ID="TextBoxTimer" runat="server" OnTextChanged="UpdateTimerInterval">2</asp:TextBox>
+                                <asp:CheckBox ID="CheckBoxTimeOnOff" runat="server" Text="Turn Timer On/Off (Auto Timer starts after next generation click)" OnCheckedChanged="TurnTimerOnOff" Checked="false" />
 
-            </span>
-            <div>
-                <span>
-                    <asp:Button ID="ButtonGetNextGeneration" runat="server" Text="Start / Next Generation" OnClick="GetNextGeneration" />
-                </span>
-                <span id="PanelReplayGameArea">
-                    <asp:Button ID="ButtonReplayGame" runat="server" Text="Click Reset Inital State of Last Game" OnClick="ReplayGame" Enabled="false" />
-                </span>
-                <asp:Panel ID="PanelSaveGameArea" runat="server" Visible="false">
-                    <asp:Button ID="ButtonSaveGame" runat="server" Text="Click Here to Save Game" OnClick="SaveGame" />
-                    <asp:TextBox ID="TextBoxSavedDescription" runat="server">&lt; put saved game description here&gt;</asp:TextBox>
-                </asp:Panel>
+                            </span>
+                            <div>
+                                <span>
+                                    <asp:Button ID="ButtonGetNextGeneration" runat="server" Text="Start / Next Generation" OnClick="GetNextGeneration" />
+                                </span>
+                                <span id="PanelReplayGameArea">
+                                    <asp:Button ID="ButtonReplayGame" runat="server" Text="Click Reset Inital State of Last Game" OnClick="ReplayGame" Enabled="false" />
+                                </span>
+                                <asp:Panel ID="PanelSaveGameArea" runat="server" Visible="false">
+                                    <asp:Button ID="ButtonSaveGame" runat="server" Text="Click Here to Save Game" OnClick="SaveGame" />
+                                    <asp:TextBox ID="TextBoxSavedDescription" runat="server">&lt; put saved game description here&gt;</asp:TextBox>
+                                </asp:Panel>
 
-            </div>
+                            </div>
 
-        </fieldset>
+                        </fieldset>
+                    </td>
+                    <td>
+                        <asp:Panel ID="PanelExampleGames" runat="server" Visible="false">
+                            <fieldset>
+                                <legend>Example and Saved Games Controls</legend>
+                                <span>
+                                    <asp:Label ID="LabelExample" runat="server" Text="Example Games"></asp:Label>
+                                    <asp:ListBox ID="ListBoxExamples" runat="server" Rows="1" OnSelectedIndexChanged="ListBoxExamples_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
+                                    <asp:TextBox ID="TextBoxExamplesInfo" runat="server"></asp:TextBox>
+                                </span>
+                                <div>
+                                    <span>
+                                        <asp:Button ID="ButtonInitialize" runat="server" Text="Initial Game Board With Selected Game" OnClick="InitialWithExample" Enabled="false" />
+                                    </span>
+
+                                </div>
+
+                            </fieldset>
+                        </asp:Panel>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
         <asp:Panel ID="gameMessageArea" runat="server">
             Make a Game Grid
         </asp:Panel>
 
 
 
-        <asp:Panel ID="GridAreaPanel" runat="server" UpdateMode="Conditional">
+        <asp:Panel ID="GridAreaPanel" runat="server">
             <triggers>
             <asp:AsyncPostBackTrigger ControlID="Timer1" />
         </triggers>

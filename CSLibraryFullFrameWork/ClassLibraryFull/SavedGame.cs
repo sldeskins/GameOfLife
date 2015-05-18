@@ -86,6 +86,20 @@ namespace CS_GOL_LibraryFull
                 _description = value;
             }
         }
+        private string _title;
+
+        public string Title
+        {
+            get
+            {
+                return _title;
+            }
+            set
+            {
+                _title = value;
+            }
+        }
+        
         private GameStateEnum _gameState;
 
         public GameStateEnum EndState

@@ -157,6 +157,51 @@ namespace GOLWebApplicationUI {
         protected global::System.Web.UI.WebControls.TextBox TextBoxSavedDescription;
         
         /// <summary>
+        /// PanelExampleGames control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelExampleGames;
+        
+        /// <summary>
+        /// LabelExample control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelExample;
+        
+        /// <summary>
+        /// ListBoxExamples control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox ListBoxExamples;
+        
+        /// <summary>
+        /// TextBoxExamplesInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxExamplesInfo;
+        
+        /// <summary>
+        /// ButtonInitialize control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonInitialize;
+        
+        /// <summary>
         /// gameMessageArea control.
         /// </summary>
         /// <remarks>

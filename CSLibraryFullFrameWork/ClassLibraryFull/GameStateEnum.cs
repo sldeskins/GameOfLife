@@ -11,6 +11,8 @@ namespace CS_GOL_LibraryFull
         Continuing,
         SteadyState_AllDead,
         SteadyState_StaticAlive,
-        SteadyState_Blinker
+        SteadyState_Blinker, 
+        Special_Repeater,
+        Special_Glider_Gun, 
     }
 }

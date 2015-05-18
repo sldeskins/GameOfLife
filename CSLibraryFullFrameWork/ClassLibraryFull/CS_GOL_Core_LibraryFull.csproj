@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExampleGameLibrary.cs" />
     <Compile Include="GameCell.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameFeaturesEnum.cs" />

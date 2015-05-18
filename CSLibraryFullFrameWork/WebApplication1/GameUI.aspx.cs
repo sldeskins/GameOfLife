@@ -10,9 +10,22 @@ namespace GOLWebApplicationUI
 {
     public partial class GameUI : System.Web.UI.Page
     {
+        const string NO_GAME_SELECTED = "no game selected";
+
         #region persistance
         private GameGrid _grid;
 
+        protected List<GameFeaturesEnum> GameFeatures
+        {
+            get
+            {
+                return (List<GameFeaturesEnum>)ViewState["GameFeatures"];
+            }
+            set
+            {
+                ViewState["GameFeatures"] = value;
+            }
+        }
         protected Game Game
         {
             get
@@ -52,12 +65,34 @@ namespace GOLWebApplicationUI
 
         protected void Page_Load ( object sender, EventArgs e )
         {
+
             if (Page.IsPostBack)
             {
                 _putButtonsOnGrid();
             }
             else
             {
+
+                //todo - GameFeatures comes from login/user acess control
+                GameFeatures = new List<GameFeaturesEnum>();
+                GameFeatures.Add(GameFeaturesEnum.Basic);
+                GameFeatures.Add(GameFeaturesEnum.ReplayGame);
+                GameFeatures.Add(GameFeaturesEnum.ExampleGameLibrary);
+                // GameFeatures.Add(GameFeaturesEnum.SaveGames);
+
+                if (GameFeatures.Contains(GameFeaturesEnum.ExampleGameLibrary))
+                {
+                    Panel panel = (Panel)FindControl("PanelExampleGames");
+                    panel.Visible = true;
+                    ListBox exampleGamesListBox = (ListBox)FindControl("ListBoxExamples");
+                    exampleGamesListBox.Items.Add(new ListItem("(none selected)", NO_GAME_SELECTED));
+                    exampleGamesListBox.SelectedIndex = 0;
+                    foreach (var exampleGameDictionary in ExampleGameLibrary.ExampleGames)
+                    {
+                        exampleGamesListBox.Items.Add(new ListItem(exampleGameDictionary.Value.Title, exampleGameDictionary.Key));
+                    }
+
+                }
                 _makeNewGameAndLayoutGrid();
             }
 
@@ -176,7 +211,7 @@ namespace GOLWebApplicationUI
                 _layoutEmptyGameGrid();
                 CheckBoxTimeOnOff.Checked = false;
 
-                if (Game.GameFeatures.Contains(GameFeaturesEnum.ReplayGame) || Game.GameFeatures.Contains(GameFeaturesEnum.SaveGames))
+                if (GameFeatures.Contains(GameFeaturesEnum.ReplayGame) || GameFeatures.Contains(GameFeaturesEnum.SaveGames) || GameFeatures.Contains(GameFeaturesEnum.ExampleGameLibrary))
                 {
                     SavedGame = new SavedGame();
                     SavedGame.Rows = Game.GameBoard.Rows;
@@ -223,12 +258,12 @@ namespace GOLWebApplicationUI
                 SavedGame.EndGeneration = (int)Game.SteadyStateGeneration;
                 SavedGame.EndState = Game.GameState;
 
-                if (Game.GameFeatures.Contains(GameFeaturesEnum.ReplayGame) && SavedGame != null)
+                if (GameFeatures.Contains(GameFeaturesEnum.ReplayGame) && SavedGame != null)
                 {
                     Button panel = (Button)FindControl("ButtonReplayGame");
                     panel.Enabled = true;
                 }
-                if (Game.GameFeatures.Contains(GameFeaturesEnum.SaveGames))
+                if (GameFeatures.Contains(GameFeaturesEnum.SaveGames))
                 {
                     Panel panel = (Panel)FindControl("PanelSaveGameArea");
                     panel.Visible = true;
@@ -353,6 +388,55 @@ namespace GOLWebApplicationUI
             column = int.Parse(rc[1]);
         }
 
+
+        private void _ListExampleGameInfo ()
+        {
+            ListBox controlListBox = (ListBox)FindControl("ListBoxExamples");
+            TextBox descriptionTextBox = (TextBox)FindControl("TextBoxExamplesInfo");
+            Button buttonInitialize = (Button)FindControl("ButtonInitialize");
+
+            if (controlListBox.SelectedItem.Value != NO_GAME_SELECTED)
+            {
+                SavedGame exampleGame = ExampleGameLibrary.ExampleGames[controlListBox.SelectedItem.Value];
+                descriptionTextBox.Text = string.Format("Game: {0} Mininum Grid: {1} rows  x {2} columns Description: {3}", exampleGame.Title, exampleGame.Rows, exampleGame.Columns, exampleGame.Description);
+                ButtonInitialize.Enabled = true;
+            }
+            else
+            {
+                descriptionTextBox.Text = "";
+                ButtonInitialize.Enabled = false;
+            }
+        }
+        protected void InitialWithExample ( object sender, EventArgs e )
+        {
+            _InitialWithExample();
+        }
+
+        private void _InitialWithExample ()
+        {
+            ListBox controlListBox = (ListBox)FindControl("ListBoxExamples");
+            SavedGame exampleGame = ExampleGameLibrary.ExampleGames[controlListBox.SelectedItem.Value];
+          
+            Button nexGenbutton = (Button)FindControl("ButtonGetNextGeneration");
+            if (exampleGame.Rows > _grid.Rows || exampleGame.Columns > _grid.Columns)
+            {
+                _putMessage(string.Format(string.Format("The grid needs to be at least {0} rows x {1} columns.", exampleGame.Rows, exampleGame.Columns)));
+                nexGenbutton.Enabled = false;
+            }
+            else
+            {
+                Game.AlivePositions = exampleGame.InitialAlivePositions;
+                SavedGame.InitialAlivePositions = exampleGame.InitialAlivePositions;
+                _grid.setAliveCells(exampleGame.InitialAlivePositions);
+                _setAliveOnLayoutGameGrid(exampleGame.InitialAlivePositions);
+                nexGenbutton.Enabled = true;
+            }
+        }
+
+        protected void ListBoxExamples_SelectedIndexChanged ( object sender, EventArgs e )
+        {
+            _ListExampleGameInfo();
+        }
 
     }
 }

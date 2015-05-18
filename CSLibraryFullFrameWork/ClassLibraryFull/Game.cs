@@ -8,23 +8,6 @@ namespace CS_GOL_LibraryFull
     [Serializable]
     public class Game
     {
-        protected internal List<GameFeaturesEnum> _allowedFeatures = new List<GameFeaturesEnum>() {
-            GameFeaturesEnum.Basic,
-            GameFeaturesEnum.ReplayGame
-          //  GameFeaturesEnum.SaveGames
-        };
-        public List<GameFeaturesEnum> GameFeatures
-        {
-            get
-            {
-                return _allowedFeatures;
-            }
-            protected internal set
-            {
-                _allowedFeatures = value;
-            }
-        }
-
         private GameGrid _grid = new GameGrid(0, 0);
         public GameGrid GameBoard
         {
