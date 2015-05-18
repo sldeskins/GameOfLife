@@ -292,6 +292,14 @@ namespace GOLWebApplicationUI
             messageArea.Controls.Add(new LiteralControl(message));
 
         }
+        private void _putMessageExampleGame ( string message )
+        {
+            var messageArea = FindControl("TextBoxExampleGame");
+            messageArea.Controls.Clear();
+            messageArea.Controls.Add(new LiteralControl(message));
+
+        }
+
         protected bool _trySetRowsColumnsFromForm ()
         {
             int rows;
@@ -398,7 +406,7 @@ namespace GOLWebApplicationUI
             if (controlListBox.SelectedItem.Value != NO_GAME_SELECTED)
             {
                 SavedGame exampleGame = ExampleGameLibrary.ExampleGames[controlListBox.SelectedItem.Value];
-                descriptionTextBox.Text = string.Format("Game: {0} Mininum Grid: {1} rows  x {2} columns Description: {3}", exampleGame.Title, exampleGame.Rows, exampleGame.Columns, exampleGame.Description);
+                descriptionTextBox.Text = string.Format("Game: {0} {4}Mininum Grid: {1} rows  x {2} columns{4} Description: {3}", exampleGame.Title, exampleGame.Rows, exampleGame.Columns, exampleGame.Description,System.Environment.NewLine );
                 ButtonInitialize.Enabled = true;
             }
             else
@@ -416,11 +424,12 @@ namespace GOLWebApplicationUI
         {
             ListBox controlListBox = (ListBox)FindControl("ListBoxExamples");
             SavedGame exampleGame = ExampleGameLibrary.ExampleGames[controlListBox.SelectedItem.Value];
-          
+
             Button nexGenbutton = (Button)FindControl("ButtonGetNextGeneration");
             if (exampleGame.Rows > _grid.Rows || exampleGame.Columns > _grid.Columns)
             {
                 _putMessage(string.Format(string.Format("The grid needs to be at least {0} rows x {1} columns.", exampleGame.Rows, exampleGame.Columns)));
+                _putMessageExampleGame(string.Format(string.Format("The grid needs to be at least {0} rows x {1} columns.", exampleGame.Rows, exampleGame.Columns)));
                 nexGenbutton.Enabled = false;
             }
             else
@@ -430,12 +439,18 @@ namespace GOLWebApplicationUI
                 _grid.setAliveCells(exampleGame.InitialAlivePositions);
                 _setAliveOnLayoutGameGrid(exampleGame.InitialAlivePositions);
                 nexGenbutton.Enabled = true;
+                _putMessageExampleGame("");
             }
         }
 
         protected void ListBoxExamples_SelectedIndexChanged ( object sender, EventArgs e )
         {
             _ListExampleGameInfo();
+        }
+
+        protected void TextBoxExamplesInfo_TextChanged ( object sender, EventArgs e )
+        {
+
         }
 
     }

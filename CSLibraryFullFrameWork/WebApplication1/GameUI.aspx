@@ -67,16 +67,15 @@
                         <asp:Panel ID="PanelExampleGames" runat="server" Visible="false">
                             <fieldset>
                                 <legend>Example and Saved Games Controls</legend>
-                                <span>
-                                    <asp:Label ID="LabelExample" runat="server" Text="Example Games"></asp:Label>
-                                    <asp:ListBox ID="ListBoxExamples" runat="server" Rows="1" OnSelectedIndexChanged="ListBoxExamples_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
-                                    <asp:TextBox ID="TextBoxExamplesInfo" runat="server"></asp:TextBox>
-                                </span>
                                 <div>
-                                    <span>
-                                        <asp:Button ID="ButtonInitialize" runat="server" Text="Initial Game Board With Selected Game" OnClick="InitialWithExample" Enabled="false" />
-                                    </span>
-
+                                    <asp:Label ID="LabelExample" runat="server" Text="Example Games" style="vertical-align:top" ></asp:Label>
+                                    <asp:ListBox ID="ListBoxExamples" runat="server" style="vertical-align:top" Rows="1" OnSelectedIndexChanged="ListBoxExamples_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
+                                    <asp:TextBox ID="TextBoxExamplesInfo" runat="server" Wrap="true" ScrollBars="Vertical" Rows="5" OnTextChanged="TextBoxExamplesInfo_TextChanged" Width="156px" TextMode="MultiLine"></asp:TextBox>
+                                </div>
+                                <div>
+                                    <asp:Button ID="ButtonInitialize" runat="server" Text="Initial Game Board With Selected Game" OnClick="InitialWithExample" Enabled="false" />
+                                    <asp:Panel ID="TextBoxExampleGame" runat="server"  >
+                                    </asp:Panel>
                                 </div>
 
                             </fieldset>
